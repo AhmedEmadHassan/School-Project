@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolProject.Core.Bases;
 using SchoolProject.Core.Featurres.Students.Queries.Models;
 using SchoolProject.Core.Featurres.Students.Queries.Response;
+using SchoolProject.Data.AppMetaData;
 
 namespace SchoolProject.Api.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class StudentsController : ControllerBase
     {
@@ -16,7 +16,7 @@ namespace SchoolProject.Api.Controllers
         {
             _mediator = mediator;
         }
-        [HttpGet("list")]
+        [HttpGet(Router.StudentsRouting.getStudentList)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response<List<GetStudentListResponse>>))]
         [Produces("application/json")]
         public async Task<IActionResult> GetStudentList()
@@ -24,7 +24,7 @@ namespace SchoolProject.Api.Controllers
             var response = await _mediator.Send(new GetStudentListQuery());
             return StatusCode((int)response.StatusCode, response);
         }
-        [HttpGet("{id}")]
+        [HttpGet(Router.StudentsRouting.getStudentByID)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response<GetStudentResponse>)), ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Response<GetStudentResponse>))]
         [Produces("Application/json")]
         public async Task<IActionResult> GetStudentByID([FromRoute]int id)
