@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SchoolProject.Data\SchoolProject.Data.csproj" />
+    <ProjectReference Include="..\SchoolProject.Infrustructure\SchoolProject.Infrustructure.csproj" />
+    <ProjectReference Include="..\SchoolProject.Service\SchoolProject.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Featurres\Students\Commands\Handlers\" />
+    <Folder Include="Featurres\Students\Commands\Models\" />
+    <Folder Include="Featurres\Students\Commands\" />
+    <Folder Include="Mapping\Students\CommandMapping\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="16.0.0" />
+    <PackageReference Include="MediatR" Version="14.0.0" />
+  </ItemGroup>
+
+</Project>
