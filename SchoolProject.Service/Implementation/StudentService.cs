@@ -32,6 +32,29 @@ namespace SchoolProject.Service.Implementation
                                             .FirstOrDefaultAsync(s => s.StudID == id);
             return await student;
         }
+
+        public async Task<bool> AddAsync(Student student)
+        {
+            // Check if name already exists
+            var studentResult = _studentRepository.GetTableNoTracking().Where(x => x.Name.Equals(student.Name)).FirstOrDefault();
+            if (studentResult != null)
+            {
+                return false;
+            }
+            // Add student if not exists
+            try
+            {
+                await _studentRepository.AddAsync(student);
+                return true;
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
         #endregion
 
     }

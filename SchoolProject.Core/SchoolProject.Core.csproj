@@ -13,13 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Featurres\Students\Commands\Handlers\" />
-    <Folder Include="Featurres\Students\Commands\Models\" />
-    <Folder Include="Featurres\Students\Commands\" />
-    <Folder Include="Mapping\Students\CommandMapping\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="16.0.0" />
     <PackageReference Include="MediatR" Version="14.0.0" />
   </ItemGroup>
