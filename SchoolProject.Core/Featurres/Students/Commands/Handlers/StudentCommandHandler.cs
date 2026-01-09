@@ -38,7 +38,6 @@ namespace SchoolProject.Core.Featurres.Students.Commands.Handlers
                 return BadRequest<string>("Failed to Add Student");
             }
             return Created("Added Successfully");
-
         }
         #endregion
     }

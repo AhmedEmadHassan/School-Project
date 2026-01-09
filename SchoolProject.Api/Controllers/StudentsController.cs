@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SchoolProject.Api.Base;
 using SchoolProject.Core.Bases;
 using SchoolProject.Core.Featurres.Students.Commands.Models;
 using SchoolProject.Core.Featurres.Students.Queries.Models;
@@ -10,20 +11,14 @@ using SchoolProject.Data.AppMetaData;
 namespace SchoolProject.Api.Controllers
 {
     [ApiController]
-    public class StudentsController : ControllerBase
+    public class StudentsController : AppControllerBase
     {
-        private readonly IMediator _mediator;
-        public StudentsController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
         [HttpGet(Router.StudentsRouting.getStudentList)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response<List<GetStudentListResponse>>))]
         [Produces("application/json")]
         public async Task<IActionResult> GetStudentList()
         {
-            var response = await _mediator.Send(new GetStudentListQuery());
-            return StatusCode((int)response.StatusCode, response);
+            return NewResult(await Mediator.Send(new GetStudentListQuery()));
         }
         [HttpGet(Router.StudentsRouting.getStudentByID)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response<GetStudentResponse>))]
@@ -31,8 +26,7 @@ namespace SchoolProject.Api.Controllers
         [Produces("Application/json")]
         public async Task<IActionResult> GetStudentByID([FromRoute]int id)
         {
-            var response = await _mediator.Send(new GetStudentByIDQuery(id));
-            return StatusCode((int)response.StatusCode, response);
+            return NewResult(await Mediator.Send(new GetStudentByIDQuery(id)));
         }
         [HttpPost(Router.StudentsRouting.Create)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response<string>))]
@@ -40,8 +34,7 @@ namespace SchoolProject.Api.Controllers
         [Produces("Application/json")]
         public async Task<IActionResult> Create([FromBody] AddStudentCommand command)
         {
-            var response = await _mediator.Send(command);
-            return StatusCode((int)response.StatusCode, response);
+            return NewResult(await Mediator.Send(command));
         }
     }
 }

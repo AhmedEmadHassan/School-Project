@@ -14,7 +14,6 @@ namespace SchoolProject.Core.Featurres.Students.Commands.Models
         [Required]
         public string Address { get; set; }
         public string Phone { get; set; }
-        public string? DepartmentName { get; set; }
         public int DepartmentId { get; set; }
     }
 }
