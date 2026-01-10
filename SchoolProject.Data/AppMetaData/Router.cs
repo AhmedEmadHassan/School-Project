@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SchoolProject.Data.AppMetaData
+﻿namespace SchoolProject.Data.AppMetaData
 {
     public static class Router
     {

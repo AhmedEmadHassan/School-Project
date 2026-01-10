@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolProject.Core.Bases;
 using System.Net;
@@ -38,6 +37,6 @@ namespace SchoolProject.Api.Base
             }
         }
         #endregion
-        
+
     }
 }

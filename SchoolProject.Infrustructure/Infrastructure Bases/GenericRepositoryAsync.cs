@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using SchoolProject.Infrustructure.Context;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SchoolProject.Infrustructure.Infrastructure_Bases
 {

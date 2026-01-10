@@ -3,13 +3,7 @@ using MediatR;
 using SchoolProject.Core.Bases;
 using SchoolProject.Core.Featurres.Students.Queries.Models;
 using SchoolProject.Core.Featurres.Students.Queries.Response;
-using SchoolProject.Data.Entities;
 using SchoolProject.Service.Abstracts;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace SchoolProject.Core.Featurres.Students.Queries.Handlers
 {
@@ -40,7 +34,7 @@ namespace SchoolProject.Core.Featurres.Students.Queries.Handlers
         public async Task<Response<GetStudentResponse>> Handle(GetStudentByIDQuery request, CancellationToken cancellationToken)
         {
             var student = await _studentService.GetStudentByIdAsync(request.Id);
-            if(student == null)
+            if (student == null)
             {
                 return NotFound<GetStudentResponse>("Student not found");
             }

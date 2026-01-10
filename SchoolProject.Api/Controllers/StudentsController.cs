@@ -1,6 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SchoolProject.Api.Base;
 using SchoolProject.Core.Bases;
 using SchoolProject.Core.Featurres.Students.Commands.Models;
@@ -24,7 +22,7 @@ namespace SchoolProject.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response<GetStudentResponse>))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Response<GetStudentResponse>))]
         [Produces("Application/json")]
-        public async Task<IActionResult> GetStudentByID([FromRoute]int id)
+        public async Task<IActionResult> GetStudentByID([FromRoute] int id)
         {
             return NewResult(await Mediator.Send(new GetStudentByIDQuery(id)));
         }

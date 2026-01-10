@@ -1,15 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using SchoolProject.Core.Bases;
 using SchoolProject.Core.Featurres.Students.Commands.Models;
 using SchoolProject.Data.Entities;
 using SchoolProject.Service.Abstracts;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace SchoolProject.Core.Featurres.Students.Commands.Handlers
 {
@@ -20,7 +14,7 @@ namespace SchoolProject.Core.Featurres.Students.Commands.Handlers
         private readonly IMapper _mapper;
         #endregion
         #region Constructors
-        public StudentCommandHandler(IStudentService studentService,IMapper mapper)
+        public StudentCommandHandler(IStudentService studentService, IMapper mapper)
         {
             _studentService = studentService;
             _mapper = mapper;
@@ -33,7 +27,7 @@ namespace SchoolProject.Core.Featurres.Students.Commands.Handlers
             var studentModel = _mapper.Map<Student>(request);
             // Add Student
             var result = await _studentService.AddAsync(studentModel);
-            if(!result)
+            if (!result)
             {
                 return BadRequest<string>("Failed to Add Student");
             }

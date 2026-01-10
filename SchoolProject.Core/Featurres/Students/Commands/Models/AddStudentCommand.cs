@@ -1,9 +1,6 @@
 ﻿using MediatR;
 using SchoolProject.Core.Bases;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace SchoolProject.Core.Featurres.Students.Commands.Models
 {

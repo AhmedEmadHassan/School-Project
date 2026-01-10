@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using SchoolProject.Infrustructure.Abstracts;
 using System.Reflection;
 namespace SchoolProject.Core
 {

@@ -3,9 +3,6 @@ using SchoolProject.Data.Entities;
 using SchoolProject.Infrustructure.Abstracts;
 using SchoolProject.Infrustructure.Context;
 using SchoolProject.Infrustructure.Infrastructure_Bases;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SchoolProject.Infrustructure.Repositories
 {
@@ -22,7 +19,7 @@ namespace SchoolProject.Infrustructure.Repositories
         #endregion
         #region Methods
         public async Task<List<Student>> GetAllStudentsListAsync()
-        {   
+        {
             return await _dbContext.students.Include(s => s.Department).ToListAsync();
         }
 

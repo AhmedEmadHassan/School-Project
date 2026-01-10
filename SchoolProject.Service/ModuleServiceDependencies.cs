@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using SchoolProject.Infrustructure.Abstracts;
 using SchoolProject.Service.Abstracts;
 using SchoolProject.Service.Implementation;
 

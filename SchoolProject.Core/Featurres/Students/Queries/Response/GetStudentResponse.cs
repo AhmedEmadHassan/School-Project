@@ -1,11 +1,4 @@
-﻿using SchoolProject.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
-
-namespace SchoolProject.Core.Featurres.Students.Queries.Response
+﻿namespace SchoolProject.Core.Featurres.Students.Queries.Response
 {
     public class GetStudentResponse
     {

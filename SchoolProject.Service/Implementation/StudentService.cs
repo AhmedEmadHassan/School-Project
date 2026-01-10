@@ -2,9 +2,6 @@
 using SchoolProject.Data.Entities;
 using SchoolProject.Infrustructure.Abstracts;
 using SchoolProject.Service.Abstracts;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SchoolProject.Service.Implementation
 {
