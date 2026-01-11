@@ -32,24 +32,23 @@ namespace SchoolProject.Service.Implementation
 
         public async Task<bool> AddAsync(Student student)
         {
-            // Check if name already exists
-            var studentResult = _studentRepository.GetTableNoTracking().Where(x => x.Name.Equals(student.Name)).FirstOrDefault();
-            if (studentResult != null)
-            {
-                return false;
-            }
+            bool result = false;
             // Add student if not exists
             try
             {
                 await _studentRepository.AddAsync(student);
-                return true;
-
+                result = true;
             }
             catch (Exception)
             {
-                return false;
+                result = false;
             }
+            return result;
+        }
 
+        public async Task<bool> IsNameExists(string name)
+        {
+            return await _studentRepository.GetTableNoTracking().AnyAsync(s => s.Name == name);
         }
 
         #endregion

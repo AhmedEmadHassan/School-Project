@@ -2,6 +2,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using SchoolProject.Core;
+using SchoolProject.Core.Middleware;
 using SchoolProject.Infrustructure;
 using SchoolProject.Infrustructure.Context;
 using SchoolProject.Service;
@@ -28,9 +29,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 #endregion
 var app = builder.Build();
+app.UseMiddleware<ErrorHandlerMiddleware>();
+
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || true)
 {
     #region AddSwaggerMiddlewares
     app.UseSwagger();
@@ -40,6 +43,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 
 app.UseAuthorization();
 
