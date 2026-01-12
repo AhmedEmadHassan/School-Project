@@ -33,8 +33,9 @@ namespace SchoolProject.Core.Featurres.Students.Commands.Validators
         }
         public void ApplyCustomValidationRules()
         {
+            // check If another person have the same name (Only Validate if the person Id is valid)
             RuleFor(s => s.Name)
-                .MustAsync(async (model, key, CancellationToken) => !await _studentService.IsNameExistsExcludeSelf(key, model.Id))
+                .MustAsync(async (model, key, CancellationToken) => (!await _studentService.IsNameExistsExcludeSelfAsync(key, model.Id) || !await _studentService.IsIdExistsAsync(model.Id)))
                 .WithMessage("The Name already Exists");
         }
         #endregion

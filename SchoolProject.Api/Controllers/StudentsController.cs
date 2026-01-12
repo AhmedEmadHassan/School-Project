@@ -44,5 +44,14 @@ namespace SchoolProject.Api.Controllers
         {
             return NewResult(await Mediator.Send(command));
         }
+        [HttpDelete(Router.StudentsRouting.Delete)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response<string>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Response<string>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Response<string>))]
+        [Produces("Application/json")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            return NewResult(await Mediator.Send(new DeleteStudentCommand(id)));
+        }
     }
 }

@@ -22,10 +22,16 @@ namespace SchoolProject.Service.Implementation
         {
             return await _studentRepository.GetAllStudentsListAsync();
         }
-        public async Task<Student?> GetStudentByIdAsync(int id)
+        public async Task<Student?> GetStudentByIdWithIncludeAsync(int id)
         {
             var student = _studentRepository.GetTableNoTracking()
                                             .Include(s => s.Department)
+                                            .FirstOrDefaultAsync(s => s.StudID == id);
+            return await student;
+        }
+        public async Task<Student?> GetStudentByIdAsync(int id)
+        {
+            var student = _studentRepository.GetTableNoTracking()
                                             .FirstOrDefaultAsync(s => s.StudID == id);
             return await student;
         }
@@ -46,16 +52,6 @@ namespace SchoolProject.Service.Implementation
             return result;
         }
 
-        public async Task<bool> IsNameExists(string name)
-        {
-            return await _studentRepository.GetTableNoTracking().AnyAsync(s => s.Name == name);
-        }
-
-        public Task<bool> IsNameExistsExcludeSelf(string name, int id)
-        {
-            return _studentRepository.GetTableNoTracking().AnyAsync(s => s.Name == name && s.StudID != id);
-        }
-
         public async Task<bool> EditAsync(Student student)
         {
             bool result = false;
@@ -72,6 +68,38 @@ namespace SchoolProject.Service.Implementation
             return result;
         }
 
+        public async Task<bool> DeleteAsync(Student student)
+        {
+            bool result = false;
+            var trans = _studentRepository.BeginTransaction();
+            try
+            {
+                await _studentRepository.DeleteAsync(student);
+                await trans.CommitAsync();
+                result = true;
+            }
+            catch (Exception)
+            {
+                await trans.RollbackAsync();
+                result = false;
+            }
+            return result;
+        }
+
+        public async Task<bool> IsNameExistsAsync(string name)
+        {
+            return await _studentRepository.GetTableNoTracking().AnyAsync(s => s.Name == name);
+        }
+
+        public async Task<bool> IsNameExistsExcludeSelfAsync(string name, int id)
+        {
+            return await _studentRepository.GetTableNoTracking().AnyAsync(s => s.Name == name && s.StudID != id);
+        }
+        public async Task<bool> IsIdExistsAsync(int id)
+        {
+            var student = await _studentRepository.GetByIdAsync(id);
+            return student != null;
+        }
         #endregion
 
     }

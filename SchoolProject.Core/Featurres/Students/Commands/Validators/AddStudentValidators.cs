@@ -34,7 +34,7 @@ namespace SchoolProject.Core.Featurres.Students.Commands.Validators
         public void ApplyCustomValidationRules()
         {
             RuleFor(s => s.Name)
-                .MustAsync(async (key, CancellationToken) => !await _studentService.IsNameExists(key))
+                .MustAsync(async (key, CancellationToken) => !await _studentService.IsNameExistsAsync(key))
                 .WithMessage("The Name already Exists");
         }
         #endregion

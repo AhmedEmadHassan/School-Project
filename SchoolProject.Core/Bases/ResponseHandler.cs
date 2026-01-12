@@ -7,13 +7,13 @@
         {
 
         }
-        public Response<T> Deleted<T>()
+        public Response<T> Deleted<T>(string Message = null)
         {
             return new Response<T>()
             {
                 StatusCode = System.Net.HttpStatusCode.OK,
                 Succeeded = true,
-                Message = "Deleted Successfully"
+                Message = Message != null ? Message : "Deleted Successfully"
             };
         }
         public Response<T> Success<T>(T entity, object Meta = null)
