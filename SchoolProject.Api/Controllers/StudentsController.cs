@@ -26,11 +26,21 @@ namespace SchoolProject.Api.Controllers
         {
             return NewResult(await Mediator.Send(new GetStudentByIDQuery(id)));
         }
+
         [HttpPost(Router.StudentsRouting.Create)]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response<string>))]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Response<string>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Response<string>))]
         [Produces("Application/json")]
         public async Task<IActionResult> Create([FromBody] AddStudentCommand command)
+        {
+            return NewResult(await Mediator.Send(command));
+        }
+
+        [HttpPut(Router.StudentsRouting.Edit)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response<string>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Response<string>))]
+        [Produces("Application/json")]
+        public async Task<IActionResult> Edit([FromBody] EditStudentCommand command)
         {
             return NewResult(await Mediator.Send(command));
         }

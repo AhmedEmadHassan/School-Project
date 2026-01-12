@@ -9,6 +9,7 @@ namespace SchoolProject.Core.Mapping.Students
             ConfigureGetStudentListResponseMapping();
             ConfigureGetStudentResponseMapping();
             ConfigureAddStudentCommandMapping();
+            ConfigureEditStudentCommandMapping();
         }
     }
 }

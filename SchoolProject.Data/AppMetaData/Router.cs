@@ -9,9 +9,12 @@
         {
             public const string controller = "students";
             public const string prefix = baseUrl + controller + "/";
+            #region Routes
             public const string getStudentList = prefix + "list";
             public const string getStudentByID = prefix + "{id}";
             public const string Create = prefix + "create";
+            public const string Edit = prefix + "edit";
+            #endregion
         }
     }
 }

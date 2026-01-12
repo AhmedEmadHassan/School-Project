@@ -51,6 +51,27 @@ namespace SchoolProject.Service.Implementation
             return await _studentRepository.GetTableNoTracking().AnyAsync(s => s.Name == name);
         }
 
+        public Task<bool> IsNameExistsExcludeSelf(string name, int id)
+        {
+            return _studentRepository.GetTableNoTracking().AnyAsync(s => s.Name == name && s.StudID != id);
+        }
+
+        public async Task<bool> EditAsync(Student student)
+        {
+            bool result = false;
+            // Update student if exists
+            try
+            {
+                await _studentRepository.UpdateAsync(student);
+                result = true;
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+            return result;
+        }
+
         #endregion
 
     }
