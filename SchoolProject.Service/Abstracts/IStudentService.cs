@@ -13,5 +13,7 @@ namespace SchoolProject.Service.Abstracts
         public Task<bool> IsIdExistsAsync(int id);
         public Task<bool> IsNameExistsExcludeSelfAsync(string name, int id);
         public Task<bool> DeleteAsync(Student student);
+        public IQueryable<Student> GetStudentsQueryable();
+        public IQueryable<Student> FilterStudentPaginatedQuarable(string? search);
     }
 }

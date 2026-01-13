@@ -16,7 +16,14 @@ namespace SchoolProject.Api.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> GetStudentList()
         {
-            return NewResult(await Mediator.Send(new GetStudentListQuery()));
+            return Ok(await Mediator.Send(new GetStudentListQuery()));
+        }
+        [HttpGet(Router.StudentsRouting.Paginated)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response<List<GetStudentListResponse>>))]
+        [Produces("application/json")]
+        public async Task<IActionResult> Paginated([FromQuery] GetStudentPaginatedListQuery query)
+        {
+            return Ok(await Mediator.Send(query));
         }
         [HttpGet(Router.StudentsRouting.getStudentByID)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response<GetStudentResponse>))]
