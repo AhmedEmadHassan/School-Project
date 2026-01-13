@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SchoolProject.Data.Entities;
+using SchoolProject.Data.Helpers;
 using SchoolProject.Infrustructure.Abstracts;
 using SchoolProject.Service.Abstracts;
 
@@ -106,9 +107,27 @@ namespace SchoolProject.Service.Implementation
             return _studentRepository.GetTableNoTracking().Include(s => s.Department).AsQueryable();
         }
 
-        public IQueryable<Student> FilterStudentPaginatedQuarable(string? search = null)
+        public IQueryable<Student> FilterStudentPaginatedQuarable(StudentOrderingEnum orderBy, string? search = null)
         {
             var quarable = _studentRepository.GetTableNoTracking().Include(s => s.Department).AsQueryable();
+            switch (orderBy)
+            {
+                case StudentOrderingEnum.StudID:
+                    quarable = quarable.OrderBy(s => s.StudID);
+                    break;
+                case StudentOrderingEnum.Name:
+                    quarable = quarable.OrderBy(s => s.Name);
+                    break;
+                case StudentOrderingEnum.Address:
+                    quarable = quarable.OrderBy(s => s.Address);
+                    break;
+                case StudentOrderingEnum.DepartmentName:
+                    quarable = quarable.OrderBy(s => s.Department!.DName);
+                    break;
+                default:
+                    quarable = quarable.OrderBy(s => s.StudID);
+                    break;
+            }
             if (search != null)
             {
                 quarable = quarable.Where(s => s.Name.Contains(search) || s.Address.Contains(search) || s.Phone.Contains(search) || s.Department!.DName!.Contains(search));

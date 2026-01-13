@@ -1,4 +1,5 @@
 ﻿using SchoolProject.Data.Entities;
+using SchoolProject.Data.Helpers;
 
 namespace SchoolProject.Service.Abstracts
 {
@@ -14,6 +15,6 @@ namespace SchoolProject.Service.Abstracts
         public Task<bool> IsNameExistsExcludeSelfAsync(string name, int id);
         public Task<bool> DeleteAsync(Student student);
         public IQueryable<Student> GetStudentsQueryable();
-        public IQueryable<Student> FilterStudentPaginatedQuarable(string? search);
+        public IQueryable<Student> FilterStudentPaginatedQuarable(StudentOrderingEnum orderBy, string? search = null);
     }
 }
