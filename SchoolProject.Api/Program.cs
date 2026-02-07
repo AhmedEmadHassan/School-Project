@@ -1,11 +1,14 @@
 
 
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using SchoolProject.Core;
 using SchoolProject.Core.Middleware;
 using SchoolProject.Infrustructure;
 using SchoolProject.Infrustructure.Context;
 using SchoolProject.Service;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +27,31 @@ builder.Services.AddInfrastructureDependencies();
 builder.Services.AddServiceDependencies();
 builder.Services.AddCoreDependencies();
 #endregion
+#region Localization
+
+builder.Services.AddControllersWithViews();
+builder.Services.AddLocalization(opt =>
+    {
+        opt.ResourcesPath = "";
+    });
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+    {
+        List<CultureInfo> supportedCultures = new List<CultureInfo>
+        {
+            new CultureInfo("en-US"),
+            new CultureInfo("de-DE"),
+            new CultureInfo("fr-FR"),
+            new CultureInfo("ar-EG")
+        };
+
+        options.DefaultRequestCulture = new RequestCulture("en-US");
+        options.SupportedCultures = supportedCultures;
+        options.SupportedUICultures = supportedCultures;
+    });
+
+#endregion
+
 #region AddSwaggerServices
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -33,7 +61,7 @@ app.UseMiddleware<ErrorHandlerMiddleware>();
 
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment() || true)
+if (app.Environment.IsDevelopment())
 {
     #region AddSwaggerMiddlewares
     app.UseSwagger();
@@ -41,6 +69,12 @@ if (app.Environment.IsDevelopment() || true)
     #endregion
     app.MapOpenApi();
 }
+
+#region LocalizationMiddleware
+var options = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
+app.UseRequestLocalization(options.Value);
+
+#endregion
 
 app.UseHttpsRedirection();
 

@@ -24,7 +24,7 @@ namespace SchoolProject.Core.Featurres.Students.Commands.Validators
         {
             RuleFor(s => s.Id)
                 .GreaterThanOrEqualTo(1)
-                .WithMessage("Id Must Be Greater that 0");
+                .WithMessage("Id Must Be Greater than 0");
 
         }
         public void ApplyCustomValidationRules()

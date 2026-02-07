@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
+using Microsoft.Extensions.Localization;
 using SchoolProject.Core.Featurres.Students.Commands.Models;
+using SchoolProject.Core.Resources;
 using SchoolProject.Service.Abstracts;
 
 namespace SchoolProject.Core.Featurres.Students.Commands.Validators
@@ -8,11 +10,13 @@ namespace SchoolProject.Core.Featurres.Students.Commands.Validators
     {
         #region Fields
         private readonly IStudentService _studentService;
+        private readonly IStringLocalizer<SharedResources> _localizer;
         #endregion
         #region Contstructors
-        public EditStudentValidators(IStudentService studentService)
+        public EditStudentValidators(IStudentService studentService, IStringLocalizer<SharedResources> localizer)
         {
             _studentService = studentService;
+            _localizer = localizer;
             ApplyValidationRules();
             ApplyCustomValidationRules();
         }
@@ -22,13 +26,13 @@ namespace SchoolProject.Core.Featurres.Students.Commands.Validators
         public void ApplyValidationRules()
         {
             RuleFor(s => s.Name)
-             .NotEmpty().WithMessage("{PropertyName} is required.")
-            .MaximumLength(100).WithMessage("{PropertyName} must not exceed 100 characters.");
+             .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.Required])
+            .MaximumLength(100).WithMessage(_localizer[SharedResourcesKeys.NotExceed100Characters]);
 
             RuleFor(s => s.Address)
-                .NotEmpty().WithMessage("{PropertyName} is required.")
-                .NotNull().WithMessage("{PropertyName} must not be null.")
-                .MaximumLength(100).WithMessage("{PropertyValue} address must not exceed 200 characters.");
+                .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.Required])
+                .NotNull().WithMessage(_localizer[SharedResourcesKeys.MustNotBeNull])
+                .MaximumLength(100).WithMessage(_localizer[SharedResourcesKeys.NotExceed100Characters]);
 
         }
         public void ApplyCustomValidationRules()
@@ -36,7 +40,7 @@ namespace SchoolProject.Core.Featurres.Students.Commands.Validators
             // check If another person have the same name (Only Validate if the person Id is valid)
             RuleFor(s => s.Name)
                 .MustAsync(async (model, key, CancellationToken) => (!await _studentService.IsNameExistsExcludeSelfAsync(key, model.Id) || !await _studentService.IsIdExistsAsync(model.Id)))
-                .WithMessage("The Name already Exists");
+                .WithMessage(_localizer[SharedResourcesKeys.AlreadyExists]);
         }
         #endregion
     }
