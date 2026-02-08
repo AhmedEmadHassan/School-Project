@@ -25,11 +25,20 @@ namespace SchoolProject.Core.Featurres.Students.Commands.Validators
         #region Methods
         public void ApplyValidationRules()
         {
-            RuleFor(s => s.Name)
+            RuleFor(s => s.NameEn)
              .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.Required])
             .MaximumLength(100).WithMessage(_localizer[SharedResourcesKeys.NotExceed100Characters]);
 
-            RuleFor(s => s.Address)
+            RuleFor(s => s.NameAr)
+             .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.Required])
+            .MaximumLength(100).WithMessage(_localizer[SharedResourcesKeys.NotExceed100Characters]);
+
+            RuleFor(s => s.AddressEn)
+                .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.Required])
+                .NotNull().WithMessage(_localizer[SharedResourcesKeys.MustNotBeNull])
+                .MaximumLength(100).WithMessage(_localizer[SharedResourcesKeys.NotExceed100Characters]);
+
+            RuleFor(s => s.AddressAr)
                 .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.Required])
                 .NotNull().WithMessage(_localizer[SharedResourcesKeys.MustNotBeNull])
                 .MaximumLength(100).WithMessage(_localizer[SharedResourcesKeys.NotExceed100Characters]);
@@ -40,8 +49,11 @@ namespace SchoolProject.Core.Featurres.Students.Commands.Validators
         }
         public void ApplyCustomValidationRules()
         {
-            RuleFor(s => s.Name)
-                .MustAsync(async (key, CancellationToken) => !await _studentService.IsNameExistsAsync(key))
+            RuleFor(s => s.NameEn)
+                .MustAsync(async (key, CancellationToken) => !await _studentService.IsNameEnExistsAsync(key))
+                .WithMessage(_localizer[SharedResourcesKeys.AlreadyExists]);
+            RuleFor(s => s.NameAr)
+                .MustAsync(async (key, CancellationToken) => !await _studentService.IsNameArExistsAsync(key))
                 .WithMessage(_localizer[SharedResourcesKeys.AlreadyExists]);
         }
         #endregion

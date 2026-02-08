@@ -180,4 +180,10 @@
   <data name="DepartmentId" xml:space="preserve">
     <value>رقم القسم</value>
   </data>
+  <data name="NameEn" xml:space="preserve">
+    <value>الاسم باللغة الإنجليزية</value>
+  </data>
+  <data name="NameAr" xml:space="preserve">
+    <value>الاسم باللغة العربية</value>
+  </data>
 </root>

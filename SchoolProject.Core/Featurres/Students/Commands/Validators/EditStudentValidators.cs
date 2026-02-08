@@ -25,11 +25,20 @@ namespace SchoolProject.Core.Featurres.Students.Commands.Validators
         #region Methods
         public void ApplyValidationRules()
         {
-            RuleFor(s => s.Name)
+            RuleFor(s => s.NameEn)
              .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.Required])
             .MaximumLength(100).WithMessage(_localizer[SharedResourcesKeys.NotExceed100Characters]);
 
-            RuleFor(s => s.Address)
+            RuleFor(s => s.NameAr)
+             .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.Required])
+            .MaximumLength(100).WithMessage(_localizer[SharedResourcesKeys.NotExceed100Characters]);
+
+            RuleFor(s => s.AddressEn)
+                .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.Required])
+                .NotNull().WithMessage(_localizer[SharedResourcesKeys.MustNotBeNull])
+                .MaximumLength(100).WithMessage(_localizer[SharedResourcesKeys.NotExceed100Characters]);
+
+            RuleFor(s => s.AddressEn)
                 .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.Required])
                 .NotNull().WithMessage(_localizer[SharedResourcesKeys.MustNotBeNull])
                 .MaximumLength(100).WithMessage(_localizer[SharedResourcesKeys.NotExceed100Characters]);
@@ -38,9 +47,13 @@ namespace SchoolProject.Core.Featurres.Students.Commands.Validators
         public void ApplyCustomValidationRules()
         {
             // check If another person have the same name (Only Validate if the person Id is valid)
-            RuleFor(s => s.Name)
-                .MustAsync(async (model, key, CancellationToken) => (!await _studentService.IsNameExistsExcludeSelfAsync(key, model.Id) || !await _studentService.IsIdExistsAsync(model.Id)))
+            RuleFor(s => s.NameEn)
+                .MustAsync(async (model, key, CancellationToken) => (!await _studentService.IsNameEnExistsExcludeSelfAsync(key, model.Id) || !await _studentService.IsIdExistsAsync(model.Id)))
                 .WithMessage(_localizer[SharedResourcesKeys.AlreadyExists]);
+            RuleFor(s => s.NameAr)
+                .MustAsync(async (model, key, CancellationToken) => (!await _studentService.IsNameArExistsExcludeSelfAsync(key, model.Id) || !await _studentService.IsIdExistsAsync(model.Id)))
+                .WithMessage(_localizer[SharedResourcesKeys.AlreadyExists]);
+
         }
         #endregion
     }

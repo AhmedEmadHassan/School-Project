@@ -180,4 +180,10 @@
   <data name="DepartmentId" xml:space="preserve">
     <value>DepartmentId</value>
   </data>
+  <data name="NameEn" xml:space="preserve">
+    <value>English Name</value>
+  </data>
+  <data name="NameAr" xml:space="preserve">
+    <value>Arabic Name</value>
+  </data>
 </root>

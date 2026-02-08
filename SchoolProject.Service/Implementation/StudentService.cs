@@ -87,14 +87,21 @@ namespace SchoolProject.Service.Implementation
             return result;
         }
 
-        public async Task<bool> IsNameExistsAsync(string name)
+        public async Task<bool> IsNameEnExistsAsync(string nameEn)
         {
-            return await _studentRepository.GetTableNoTracking().AnyAsync(s => s.Name == name);
+            return await _studentRepository.GetTableNoTracking().AnyAsync(s => s.NameEn == nameEn);
         }
-
-        public async Task<bool> IsNameExistsExcludeSelfAsync(string name, int id)
+        public async Task<bool> IsNameArExistsAsync(string nameAr)
         {
-            return await _studentRepository.GetTableNoTracking().AnyAsync(s => s.Name == name && s.StudID != id);
+            return await _studentRepository.GetTableNoTracking().AnyAsync(s => s.NameAr == nameAr);
+        }
+        public async Task<bool> IsNameArExistsExcludeSelfAsync(string nameAr, int id)
+        {
+            return await _studentRepository.GetTableNoTracking().AnyAsync(s => s.NameAr == nameAr && s.StudID != id);
+        }
+        public async Task<bool> IsNameEnExistsExcludeSelfAsync(string nameEn, int id)
+        {
+            return await _studentRepository.GetTableNoTracking().AnyAsync(s => s.NameEn == nameEn && s.StudID != id);
         }
         public async Task<bool> IsIdExistsAsync(int id)
         {
@@ -116,13 +123,13 @@ namespace SchoolProject.Service.Implementation
                     quarable = quarable.OrderBy(s => s.StudID);
                     break;
                 case StudentOrderingEnum.Name:
-                    quarable = quarable.OrderBy(s => s.Name);
+                    quarable = quarable.OrderBy(s => s.GetLocalized(s.NameEn, s.NameAr));
                     break;
                 case StudentOrderingEnum.Address:
-                    quarable = quarable.OrderBy(s => s.Address);
+                    quarable = quarable.OrderBy(s => s.GetLocalized(s.AddressEn, s.AddressAr));
                     break;
                 case StudentOrderingEnum.DepartmentName:
-                    quarable = quarable.OrderBy(s => s.Department!.DName);
+                    quarable = quarable.OrderBy(s => s.Department!.GetLocalized(s.Department.DNameEn, s.Department.DNameAr));
                     break;
                 default:
                     quarable = quarable.OrderBy(s => s.StudID);
@@ -130,7 +137,7 @@ namespace SchoolProject.Service.Implementation
             }
             if (search != null)
             {
-                quarable = quarable.Where(s => s.Name.Contains(search) || s.Address.Contains(search) || s.Phone.Contains(search) || s.Department!.DName!.Contains(search));
+                quarable = quarable.Where(s => s.GetLocalized(s.NameEn, s.NameAr).Contains(search) || s.GetLocalized(s.AddressEn, s.AddressAr).Contains(search) || s.Phone.Contains(search) || s.Department!.GetLocalized(s.Department.DNameEn, s.Department.DNameAr)!.Contains(search));
             }
             return quarable;
         }

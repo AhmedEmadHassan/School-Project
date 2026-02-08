@@ -10,9 +10,11 @@ namespace SchoolProject.Service.Abstracts
         public Task<Student?> GetStudentByIdWithIncludeAsync(int id);
         public Task<bool> AddAsync(Student student);
         public Task<bool> EditAsync(Student student);
-        public Task<bool> IsNameExistsAsync(string name);
+        public Task<bool> IsNameEnExistsAsync(string nameEn);
+        public Task<bool> IsNameArExistsAsync(string nameEn);
         public Task<bool> IsIdExistsAsync(int id);
-        public Task<bool> IsNameExistsExcludeSelfAsync(string name, int id);
+        public Task<bool> IsNameEnExistsExcludeSelfAsync(string nameAr, int id);
+        public Task<bool> IsNameArExistsExcludeSelfAsync(string nameAr, int id);
         public Task<bool> DeleteAsync(Student student);
         public IQueryable<Student> GetStudentsQueryable();
         public IQueryable<Student> FilterStudentPaginatedQuarable(StudentOrderingEnum orderBy, string? search = null);
