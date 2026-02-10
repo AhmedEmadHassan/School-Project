@@ -17,7 +17,7 @@ namespace SchoolProject.Data.Entities
         public string SubjectNameEn { get; set; }
         [StringLength(500)]
         public string SubjectNameAr { get; set; }
-        public DateTime Period { get; set; }
+        public int Period { get; set; }
         public virtual ICollection<StudentSubject> StudentsSubjects { get; set; }
         public virtual ICollection<DepartmentSubject> DepartmentsSubjects { get; set; }
         // Students Many to Many Relation
