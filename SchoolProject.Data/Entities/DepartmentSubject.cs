@@ -16,6 +16,6 @@ namespace SchoolProject.Data.Entities
 
         [ForeignKey("SubID")]
         [InverseProperty(nameof(Subjects.DepartmentsSubjects))]
-        public virtual Subjects Subjects { get; set; }
+        public virtual Subject Subjects { get; set; }
     }
 }

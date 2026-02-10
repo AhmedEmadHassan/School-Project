@@ -4,12 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SchoolProject.Data.Entities
 {
-    public class Subjects : GeneralLocalizableEntity
+    public class Subject : GeneralLocalizableEntity
     {
-        public Subjects()
+        public Subject()
         {
             StudentsSubjects = new HashSet<StudentSubject>();
             DepartmentsSubjects = new HashSet<DepartmentSubject>();
+            Students = new HashSet<Student>();
         }
         [Key]
         public int SubID { get; set; }

@@ -12,6 +12,6 @@ namespace SchoolProject.Data.Entities
         public virtual Instructor Instructor { get; set; }
 
         [ForeignKey(nameof(SubID))]
-        public virtual Subjects Subject { get; set; }
+        public virtual Subject Subject { get; set; }
     }
 }
