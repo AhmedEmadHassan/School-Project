@@ -21,6 +21,12 @@ namespace SchoolProject.Data.Entities
         public int? DID { get; set; }
 
         [ForeignKey("DID")]
+        [InverseProperty(nameof(Department.Students))]
         public virtual Department Department { get; set; }
+        // Subjects Many to Many Relation
+        [InverseProperty("Students")]
+        public virtual ICollection<Subjects> Subjects { get; set; }
+
+
     }
 }

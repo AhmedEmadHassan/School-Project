@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SchoolProject.Data.Entities
 {
-    public class DepartmetSubject
+    public class DepartmentSubject
     {
         [Key]
         public int DeptSubID { get; set; }
@@ -11,9 +11,11 @@ namespace SchoolProject.Data.Entities
         public int SubID { get; set; }
 
         [ForeignKey("DID")]
+        [InverseProperty(nameof(Department.DepartmentSubjects))]
         public virtual Department Department { get; set; }
 
         [ForeignKey("SubID")]
+        [InverseProperty(nameof(Subjects.DepartmentsSubjects))]
         public virtual Subjects Subjects { get; set; }
     }
 }

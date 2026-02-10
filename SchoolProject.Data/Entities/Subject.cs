@@ -1,5 +1,6 @@
 ﻿using SchoolProject.Data.Commons;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SchoolProject.Data.Entities
 {
@@ -8,7 +9,7 @@ namespace SchoolProject.Data.Entities
         public Subjects()
         {
             StudentsSubjects = new HashSet<StudentSubject>();
-            DepartmetsSubjects = new HashSet<DepartmetSubject>();
+            DepartmentsSubjects = new HashSet<DepartmentSubject>();
         }
         [Key]
         public int SubID { get; set; }
@@ -18,6 +19,9 @@ namespace SchoolProject.Data.Entities
         public string SubjectNameAr { get; set; }
         public DateTime Period { get; set; }
         public virtual ICollection<StudentSubject> StudentsSubjects { get; set; }
-        public virtual ICollection<DepartmetSubject> DepartmetsSubjects { get; set; }
+        public virtual ICollection<DepartmentSubject> DepartmentsSubjects { get; set; }
+        // Students Many to Many Relation
+        [InverseProperty(nameof(Student.Subjects))]
+        public virtual ICollection<Student> Students { get; set; }
     }
 }

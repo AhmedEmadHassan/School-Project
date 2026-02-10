@@ -48,10 +48,10 @@ namespace SchoolProject.Core.Featurres.Students.Commands.Handlers
             {
                 return NotFound<string>(_localizer[SharedResourcesKeys.StudentNotFound]);
             }
-            // Map Between Response and Request
-            student = _mapper.Map<Student>(request);
+            // Map Between Response and Request 
+            var mappedStudent = _mapper.Map(request, student);
             // Edit Student
-            var result = await _studentService.EditAsync(student);
+            var result = await _studentService.EditAsync(mappedStudent);
             // Check if Editation Failed
             if (!result)
             {

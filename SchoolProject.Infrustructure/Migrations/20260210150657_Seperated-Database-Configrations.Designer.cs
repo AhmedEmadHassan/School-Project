@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolProject.Infrustructure.Context;
 
@@ -11,9 +12,11 @@ using SchoolProject.Infrustructure.Context;
 namespace SchoolProject.Infrustructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260210150657_Seperated-Database-Configrations")]
+    partial class SeperatedDatabaseConfigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +45,7 @@ namespace SchoolProject.Infrustructure.Migrations
 
                     b.HasKey("DID");
 
-                    b.ToTable("departments", (string)null);
+                    b.ToTable("departments");
                 });
 
             modelBuilder.Entity("SchoolProject.Data.Entities.DepartmentSubject", b =>
@@ -65,7 +68,7 @@ namespace SchoolProject.Infrustructure.Migrations
 
                     b.HasIndex("SubID");
 
-                    b.ToTable("departmentSubjects", (string)null);
+                    b.ToTable("departmentSubjects");
                 });
 
             modelBuilder.Entity("SchoolProject.Data.Entities.Ins_Subject", b =>
@@ -80,7 +83,7 @@ namespace SchoolProject.Infrustructure.Migrations
 
                     b.HasIndex("SubID");
 
-                    b.ToTable("instructorSubjects", (string)null);
+                    b.ToTable("instructorSubjects");
                 });
 
             modelBuilder.Entity("SchoolProject.Data.Entities.Instructor", b =>
@@ -116,7 +119,7 @@ namespace SchoolProject.Infrustructure.Migrations
 
                     b.HasIndex("DID");
 
-                    b.ToTable("instructors", (string)null);
+                    b.ToTable("instructors");
                 });
 
             modelBuilder.Entity("SchoolProject.Data.Entities.Student", b =>
@@ -159,7 +162,7 @@ namespace SchoolProject.Infrustructure.Migrations
 
                     b.HasIndex("DID");
 
-                    b.ToTable("students", (string)null);
+                    b.ToTable("students");
                 });
 
             modelBuilder.Entity("SchoolProject.Data.Entities.StudentSubject", b =>
@@ -174,7 +177,7 @@ namespace SchoolProject.Infrustructure.Migrations
 
                     b.HasIndex("SubID");
 
-                    b.ToTable("StudentSubject", (string)null);
+                    b.ToTable("StudentSubject");
                 });
 
             modelBuilder.Entity("SchoolProject.Data.Entities.Subjects", b =>
@@ -200,7 +203,7 @@ namespace SchoolProject.Infrustructure.Migrations
 
                     b.HasKey("SubID");
 
-                    b.ToTable("subjects", (string)null);
+                    b.ToTable("subjects");
                 });
 
             modelBuilder.Entity("StudentSubjects", b =>
@@ -215,7 +218,7 @@ namespace SchoolProject.Infrustructure.Migrations
 
                     b.HasIndex("SubjectsSubID");
 
-                    b.ToTable("StudentSubjects", (string)null);
+                    b.ToTable("StudentSubjects");
                 });
 
             modelBuilder.Entity("SchoolProject.Data.Entities.DepartmentSubject", b =>
