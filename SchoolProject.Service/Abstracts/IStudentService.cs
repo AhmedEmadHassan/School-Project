@@ -8,7 +8,7 @@ namespace SchoolProject.Service.Abstracts
         public Task<List<Student>> GetStudentsListAsync();
         public Task<Student?> GetStudentByIdAsync(int id);
         public Task<Student?> GetStudentByIdWithIncludeAsync(int id);
-        public Task<bool> AddAsync(Student student);
+        public Task<Student?> AddAsync(Student student);
         public Task<bool> EditAsync(Student student);
         public Task<bool> IsNameEnExistsAsync(string nameEn);
         public Task<bool> IsNameArExistsAsync(string nameEn);

@@ -37,13 +37,13 @@ namespace SchoolProject.Infrustructure.Infrastructure_Bases
         public virtual async Task AddRangeAsync(ICollection<T> entities)
         {
             await _dbContext.Set<T>().AddRangeAsync(entities);
-            await _dbContext.SaveChangesAsync();
+            //await _dbContext.SaveChangesAsync();
 
         }
         public virtual async Task<T> AddAsync(T entity)
         {
             await _dbContext.Set<T>().AddAsync(entity);
-            await _dbContext.SaveChangesAsync();
+            //await _dbContext.SaveChangesAsync();
 
             return entity;
         }
@@ -51,14 +51,14 @@ namespace SchoolProject.Infrustructure.Infrastructure_Bases
         public virtual async Task UpdateAsync(T entity)
         {
             _dbContext.Set<T>().Update(entity);
-            await _dbContext.SaveChangesAsync();
+            //await _dbContext.SaveChangesAsync();
 
         }
 
         public virtual async Task DeleteAsync(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
-            await _dbContext.SaveChangesAsync();
+            //await _dbContext.SaveChangesAsync();
         }
         public virtual async Task DeleteRangeAsync(ICollection<T> entities)
         {
@@ -66,13 +66,13 @@ namespace SchoolProject.Infrustructure.Infrastructure_Bases
             {
                 _dbContext.Entry(entity).State = EntityState.Deleted;
             }
-            await _dbContext.SaveChangesAsync();
+            //await _dbContext.SaveChangesAsync();
         }
 
-        public async Task SaveChangesAsync()
-        {
-            await _dbContext.SaveChangesAsync();
-        }
+        //public async Task SaveChangesAsync()
+        //{
+        //    await _dbContext.SaveChangesAsync();
+        //}
 
 
 
@@ -81,17 +81,17 @@ namespace SchoolProject.Infrustructure.Infrastructure_Bases
             return _dbContext.Database.BeginTransaction();
         }
 
-        public void Commit()
-        {
-            _dbContext.Database.CommitTransaction();
+        //public void Commit()
+        //{
+        //    _dbContext.Database.CommitTransaction();
 
-        }
+        //}
 
-        public void RollBack()
-        {
-            _dbContext.Database.RollbackTransaction();
+        //public void RollBack()
+        //{
+        //    _dbContext.Database.RollbackTransaction();
 
-        }
+        //}
 
         public IQueryable<T> GetTableAsTracking()
         {
@@ -102,7 +102,7 @@ namespace SchoolProject.Infrustructure.Infrastructure_Bases
         public virtual async Task UpdateRangeAsync(ICollection<T> entities)
         {
             _dbContext.Set<T>().UpdateRange(entities);
-            await _dbContext.SaveChangesAsync();
+            //await _dbContext.SaveChangesAsync();
         }
         #endregion
     }

@@ -139,7 +139,7 @@
     <value>This Field is Required</value>
   </data>
   <data name="StudentNotFound" xml:space="preserve">
-    <value>StudentNotFound</value>
+    <value>Student not Found</value>
   </data>
   <data name="Sucess" xml:space="preserve">
     <value>Sucess</value>
@@ -157,7 +157,7 @@
     <value>Failed to Delete Student</value>
   </data>
   <data name="StudentDeletedSuccessfully" xml:space="preserve">
-    <value>StudentDeletedSuccessfully</value>
+    <value>Student deleted Successfully</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>

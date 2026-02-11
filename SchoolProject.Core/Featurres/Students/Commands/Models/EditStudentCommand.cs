@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using SchoolProject.Core.Bases;
+using SchoolProject.Core.Featurres.Students.Queries.Response;
 
 namespace SchoolProject.Core.Featurres.Students.Commands.Models
 {
-    public class EditStudentCommand : IRequest<Response<string>>
+    public class EditStudentCommand : IRequest<Response<GetStudentResponse>>
     {
         public int Id { get; set; } //Map this to StudID
         public string NameEn { get; set; }
