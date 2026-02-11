@@ -33,6 +33,11 @@ namespace SchoolProject.Infrustructure.Repositories
         {
             return _departments.ToListAsync();
         }
+
+        public async Task<Department?> GetDepartmentByIdAsync(int id)
+        {
+            return await _departments.FindAsync(id);
+        }
         #endregion
         #region Methods
 

@@ -9,7 +9,7 @@ using SchoolProject.Service.Abstracts;
 
 namespace SchoolProject.Core.Featurres.Departments.Queries.Handlers
 {
-    public class DepartmentQueryHandler : ResponseHandler, IRequestHandler<GetDepartmentListQuery, Response<List<GetDepartmentResponse>>>
+    public class DepartmentQueryHandler : ResponseHandler, IRequestHandler<GetDepartmentListQuery, Response<List<GetDepartmentResponse>>>, IRequestHandler<GetDepartmentByIdQuery, Response<GetDepartmentResponse>>
     {
         IStringLocalizer<SharedResources> _localizer;
         IDepartmentService _departmentService;
@@ -29,6 +29,15 @@ namespace SchoolProject.Core.Featurres.Departments.Queries.Handlers
             var mappedDepartments = _mapper.Map<List<GetDepartmentResponse>>(departments);
             return Success(mappedDepartments);
 
+        }
+
+        public async Task<Response<GetDepartmentResponse>> Handle(GetDepartmentByIdQuery request, CancellationToken cancellationToken)
+        {
+            var department = await _departmentService.GetDepartmentByIdAsync(request.Id);
+            if (department is null)
+                return NotFound<GetDepartmentResponse>(_localizer[SharedResourcesKeys.NotFound]);
+            var mappedDepartment = _mapper.Map<GetDepartmentResponse>(department);
+            return Success(mappedDepartment);
         }
     }
 }

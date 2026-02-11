@@ -21,9 +21,17 @@ namespace SchoolProject.Api.Controllers
         #endregion
 
         [HttpGet(Router.DepartmentsRouting.getList)]
-        public async Task<Response<List<GetDepartmentResponse>>> GetAllDepartmentsListAsync()
+        [Produces("Application/json")]
+        public async Task<Response<List<GetDepartmentResponse>>> GetAllDepartmentsList()
         {
             return await _mediator.Send(new GetDepartmentListQuery());
+        }
+
+        [HttpGet(Router.DepartmentsRouting.getByID)]
+        [Produces("Application/json")]
+        public async Task<Response<GetDepartmentResponse>> GetDepartmentById([FromRoute] int id)
+        {
+            return await _mediator.Send(new GetDepartmentByIdQuery(id));
         }
     }
 }
