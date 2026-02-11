@@ -10,15 +10,14 @@ namespace SchoolProject.Infrustructure
     {
         public static IServiceCollection AddInfrastructureDependencies(this IServiceCollection services)
         {
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<DbContext, ApplicationDbContext>();
-            services.AddScoped<ApplicationDbContext>();
-
-
+            // Repositories
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             services.AddScoped<ISubjectRepository, SubjectRepository>();
             services.AddScoped<IInstructorRepository, InstructorRepository>();
+
+            // Unit of Work (depends on repositories and ApplicationDbContext)
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }

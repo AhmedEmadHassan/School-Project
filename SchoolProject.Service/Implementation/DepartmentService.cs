@@ -20,5 +20,15 @@ namespace SchoolProject.Service.Implementation
                                                         .FirstOrDefaultAsync();
             return department;
         }
+
+        public Task<List<Department>> GetDepartmentsListAsync()
+        {
+            return _unitOfWork.Departments.GetAllDepartmentsListAsync();
+        }
+
+        public async Task<List<Department>> GetDepartmentsListWithInstructorsAsync()
+        {
+            return await _unitOfWork.Departments.GetAllDepartmentsListWithIncludeInstructorsAsync();
+        }
     }
 }
