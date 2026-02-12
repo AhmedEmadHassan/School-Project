@@ -30,5 +30,17 @@
             public const string Paginated = prefix + "paginated";
 
         }
+        public static class UsersRouting
+        {
+            public const string controller = "users";
+            public const string prefix = baseUrl + controller + "/";
+            public const string getList = prefix + "list";
+            public const string getByID = prefix + "{id}";
+            public const string Create = prefix + "create";
+            public const string Edit = prefix + "edit";
+            public const string Delete = prefix + "delete/{id}";
+            public const string Paginated = prefix + "paginated";
+
+        }
     }
 }

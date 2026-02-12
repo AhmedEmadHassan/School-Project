@@ -12,10 +12,11 @@ namespace SchoolProject.Core
             // Configuration for MediatR
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
             // Configuration for AutoMapper
+            // Use the assembly that contains this module to ensure profiles in the Core project are discovered
             services.AddAutoMapper(cfg =>
             {
                 // Optional: add custom config here if needed
-            }, Assembly.GetExecutingAssembly());
+            }, typeof(ModuleCoreDependencies).Assembly);
             // Get Validators
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));

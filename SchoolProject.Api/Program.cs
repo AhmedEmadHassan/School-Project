@@ -1,6 +1,7 @@
 
 
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using SchoolProject.Core;
@@ -51,6 +52,13 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
         options.SupportedUICultures = supportedCultures;
     });
 
+#endregion
+
+#region Disable Model State Validation
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
 #endregion
 
 #region AddSwaggerServices

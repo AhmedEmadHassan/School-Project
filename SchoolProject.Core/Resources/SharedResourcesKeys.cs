@@ -21,6 +21,9 @@
         public const string MustNotBeNull = "MustNotBeNull";
         public const string AlreadyExists = "AlreadyExists";
         public const string MustBeGreaterThan0 = "MustBeGreaterThan0";
+        public const string UserAlreadyExists = "UserAlreadyExists";
+        public const string EmailExists = "EmailExists";
+        public const string UsernameAlreadyExists = "UsernameAlreadyExists";
 
     }
 }

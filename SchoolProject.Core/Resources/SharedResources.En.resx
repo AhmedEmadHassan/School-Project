@@ -186,4 +186,13 @@
   <data name="NameAr" xml:space="preserve">
     <value>Arabic Name</value>
   </data>
+  <data name="UserAlreadyExists" xml:space="preserve">
+    <value>User Already Exists</value>
+  </data>
+  <data name="EmailExists" xml:space="preserve">
+    <value>Email Exists</value>
+  </data>
+  <data name="UserNameAlreadyExists" xml:space="preserve">
+    <value>UsernameAlreadyExists</value>
+  </data>
 </root>

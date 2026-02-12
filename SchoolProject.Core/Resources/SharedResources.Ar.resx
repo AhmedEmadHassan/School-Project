@@ -186,4 +186,13 @@
   <data name="NameAr" xml:space="preserve">
     <value>الاسم باللغة العربية</value>
   </data>
+  <data name="UserAlreadyExists" xml:space="preserve">
+    <value>المستخدم موجود بالفعل</value>
+  </data>
+  <data name="EmailExists" xml:space="preserve">
+    <value>الايميل الذي أدخلته موجود بالفعل</value>
+  </data>
+  <data name="UsernameAlreadyExists" xml:space="preserve">
+    <value>اسم المستخدم موجود بالفعل</value>
+  </data>
 </root>
