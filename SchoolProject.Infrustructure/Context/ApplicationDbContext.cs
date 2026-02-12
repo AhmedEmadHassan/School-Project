@@ -1,10 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SchoolProject.Data.Entities;
+using SchoolProject.Data.Entities.Identity;
 using System.Reflection;
 
 namespace SchoolProject.Infrustructure.Context
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<User, Role, int, IdentityUserClaim<int>, IdentityUserRole<int>, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
         public ApplicationDbContext()
         {
@@ -13,6 +16,8 @@ namespace SchoolProject.Infrustructure.Context
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
+        public DbSet<User> users { get; set; }
+        public DbSet<Role> roles { get; set; }
         public DbSet<Department> departments { get; set; }
         public DbSet<Student> students { get; set; }
         public DbSet<Instructor> instructors { get; set; }
@@ -32,7 +37,8 @@ namespace SchoolProject.Infrustructure.Context
                 .UsingEntity<StudentSubject>(
                     j => j.HasOne(ss => ss.Subject).WithMany(su => su.StudentsSubjects).HasForeignKey(ss => ss.SubID),
                     j => j.HasOne(ss => ss.Student).WithMany(s => s.StudentSubjects).HasForeignKey(ss => ss.StudID),
-                    j => {
+                    j =>
+                    {
                         j.HasKey(ss => new { ss.StudID, ss.SubID });
                         j.ToTable("StudentSubject");
                     }

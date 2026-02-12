@@ -26,6 +26,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 builder.Services.AddInfrastructureDependencies();
 builder.Services.AddServiceDependencies();
 builder.Services.AddCoreDependencies();
+builder.Services.AddServiceRegistration();
 #endregion
 #region Localization
 
