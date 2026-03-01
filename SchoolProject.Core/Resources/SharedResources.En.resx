@@ -127,7 +127,7 @@
     <value>Created Successfully</value>
   </data>
   <data name="DeletedSuccessfully" xml:space="preserve">
-    <value>DeletedSuccessfully</value>
+    <value>Deleted Successfully</value>
   </data>
   <data name="FailedToAddStudent" xml:space="preserve">
     <value>Failed to Add Student</value>
@@ -200,5 +200,8 @@
   </data>
   <data name="FailedToEdit" xml:space="preserve">
     <value>Failed to Edit</value>
+  </data>
+  <data name="FailedToDelete" xml:space="preserve">
+    <value>Failed to Delete</value>
   </data>
 </root>

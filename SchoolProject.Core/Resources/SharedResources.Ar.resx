@@ -201,4 +201,7 @@
   <data name="FailedToEdit" xml:space="preserve">
     <value>فشل التعديل</value>
   </data>
+  <data name="FailedToDelete" xml:space="preserve">
+    <value>فشل الحذف</value>
+  </data>
 </root>
