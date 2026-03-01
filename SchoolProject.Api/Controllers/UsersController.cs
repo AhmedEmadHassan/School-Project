@@ -4,6 +4,7 @@ using SchoolProject.Api.Base;
 using SchoolProject.Core.Bases;
 using SchoolProject.Core.Featurres.Users.Commands.Models;
 using SchoolProject.Core.Featurres.Users.Queries.Models;
+using SchoolProject.Core.Featurres.Users.Queries.Response;
 using SchoolProject.Data.AppMetaData;
 
 namespace SchoolProject.Api.Controllers
@@ -35,6 +36,15 @@ namespace SchoolProject.Api.Controllers
         public async Task<IActionResult> GetUserByID([FromRoute] int id)
         {
             return NewResult(await Mediator.Send(new GetUserByIdQuery(id)));
+        }
+
+        [HttpPut(Router.UsersRouting.Edit)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response<GetUserByIdResponse>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Response<string>))]
+        [Produces("Application/json")]
+        public async Task<IActionResult> Edit([FromBody] UpdateUserCommand command)
+        {
+            return NewResult(await Mediator.Send(command));
         }
     }
 }

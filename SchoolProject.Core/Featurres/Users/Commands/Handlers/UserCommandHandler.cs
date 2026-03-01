@@ -1,15 +1,19 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using SchoolProject.Core.Bases;
 using SchoolProject.Core.Featurres.Users.Commands.Models;
+using SchoolProject.Core.Featurres.Users.Queries.Response;
 using SchoolProject.Core.Resources;
 using SchoolProject.Data.Entities.Identity;
 
 namespace SchoolProject.Core.Featurres.Users.Commands.Handlers
 {
-    public class UserCommandHandler : ResponseHandler, IRequestHandler<AddUserCommand, Response<string>>
+    public class UserCommandHandler : ResponseHandler
+                                    , IRequestHandler<AddUserCommand, Response<string>>
+                                    , IRequestHandler<UpdateUserCommand, Response<GetUserByIdResponse>>
     {
         #region Fields
         private readonly IStringLocalizer<SharedResources> _localizer;
@@ -49,6 +53,27 @@ namespace SchoolProject.Core.Featurres.Users.Commands.Handlers
             {
                 return BadRequest<string>(_localizer[SharedResourcesKeys.BadRequest]);
             }
+        }
+
+        public async Task<Response<GetUserByIdResponse>> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        {
+            // Check if User Exists
+            var User = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == request.Id);
+            if (User == null)
+            {
+                return NotFound<GetUserByIdResponse>("User Not Found");
+            }
+            // Mapping
+            var newUser = _mapper.Map(request, User);
+            // Update
+            var result = await _userManager.UpdateAsync(newUser);
+            // Result 
+            if (!result.Succeeded)
+            {
+                return BadRequest<GetUserByIdResponse>(_localizer[SharedResourcesKeys.FailedToEdit]);
+            }
+
+            return Success<GetUserByIdResponse>(_mapper.Map<GetUserByIdResponse>(newUser));
         }
         #endregion
 

@@ -195,4 +195,10 @@
   <data name="UsernameAlreadyExists" xml:space="preserve">
     <value>اسم المستخدم موجود بالفعل</value>
   </data>
+  <data name="FailedToAdd" xml:space="preserve">
+    <value>فشلت الإضافة</value>
+  </data>
+  <data name="FailedToEdit" xml:space="preserve">
+    <value>فشل التعديل</value>
+  </data>
 </root>

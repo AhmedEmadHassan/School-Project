@@ -192,7 +192,13 @@
   <data name="EmailExists" xml:space="preserve">
     <value>Email Exists</value>
   </data>
-  <data name="UserNameAlreadyExists" xml:space="preserve">
+  <data name="UsernameAlreadyExists" xml:space="preserve">
     <value>UsernameAlreadyExists</value>
+  </data>
+  <data name="FailedToAdd" xml:space="preserve">
+    <value>Failed to Add</value>
+  </data>
+  <data name="FailedToEdit" xml:space="preserve">
+    <value>Failed to Edit</value>
   </data>
 </root>
