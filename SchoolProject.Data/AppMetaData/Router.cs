@@ -40,6 +40,7 @@
             public const string Edit = prefix + "edit";
             public const string Delete = prefix + "delete/{id}";
             public const string Paginated = prefix + "paginated";
+            public const string ChangePassword = prefix + "change-password";
 
         }
     }

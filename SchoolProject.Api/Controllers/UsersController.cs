@@ -55,5 +55,14 @@ namespace SchoolProject.Api.Controllers
         {
             return NewResult(await Mediator.Send(new DeleteUserCommand(id)));
         }
+        [HttpPut(Router.UsersRouting.ChangePassword)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response<GetUserByIdResponse>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Response<string>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Response<string>))]
+        [Produces("Application/json")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangeUserPasswordCommand command)
+        {
+            return NewResult(await Mediator.Send(command));
+        }
     }
 }

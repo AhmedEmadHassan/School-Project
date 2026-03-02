@@ -204,4 +204,7 @@
   <data name="FailedToDelete" xml:space="preserve">
     <value>فشل الحذف</value>
   </data>
+  <data name="ThePasswordAndConfirmPasswordDontMatch" xml:space="preserve">
+    <value>كلمة السر غير متطابقة مع تأكيد كلمة  السر</value>
+  </data>
 </root>

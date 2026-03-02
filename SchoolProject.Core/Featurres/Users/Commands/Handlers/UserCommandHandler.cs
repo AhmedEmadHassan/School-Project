@@ -15,6 +15,7 @@ namespace SchoolProject.Core.Featurres.Users.Commands.Handlers
                                     , IRequestHandler<AddUserCommand, Response<string>>
                                     , IRequestHandler<UpdateUserCommand, Response<GetUserByIdResponse>>
                                     , IRequestHandler<DeleteUserCommand, Response<string>>
+                                    , IRequestHandler<ChangeUserPasswordCommand, Response<string>>
     {
         #region Fields
         private readonly IStringLocalizer<SharedResources> _localizer;
@@ -93,6 +94,31 @@ namespace SchoolProject.Core.Featurres.Users.Commands.Handlers
                 return BadRequest<string>(_localizer[SharedResourcesKeys.FailedToDelete]);
             }
             return Success<string>(_localizer[SharedResourcesKeys.DeletedSuccessfully]);
+        }
+
+        public async Task<Response<string>> Handle(ChangeUserPasswordCommand request, CancellationToken cancellationToken)
+        {
+            // Check that the NewPassword == ConfirmPassword
+            if (request.NewPassword != request.ConfirmPassword)
+            {
+                return BadRequest<string>(_localizer[SharedResourcesKeys.ThePasswordAndConfirmPasswordDontMatch]);
+            }
+            // Get User By ID
+            var User = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == request.Id);
+            // Check if User Found
+            if (User == null)
+            {
+                return NotFound<string>(_localizer[SharedResourcesKeys.NotFound]);
+            }
+            // Change Password Service
+            var result = await _userManager.ChangePasswordAsync(User, request.CurrentPassword, request.NewPassword);
+            // Check if changed Successfully
+            if (!result.Succeeded)
+            {
+                return BadRequest<string>("Failed to change Password");
+            }
+            //Return the Response
+            return Success<string>("Password Changed Successfully");
         }
         #endregion
 
