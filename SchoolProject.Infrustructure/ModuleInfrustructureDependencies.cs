@@ -8,16 +8,21 @@ namespace SchoolProject.Infrustructure
     {
         public static IServiceCollection AddInfrastructureDependencies(this IServiceCollection services)
         {
-            // Repositories
+            IncludeRepositoriesInDependencyInjection(services);
+            IncludeUnitOfWorkInDependencyInjection(services);
+            return services;
+        }
+        private static void IncludeRepositoriesInDependencyInjection(IServiceCollection services)
+        {
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             services.AddScoped<ISubjectRepository, SubjectRepository>();
             services.AddScoped<IInstructorRepository, InstructorRepository>();
-
-            // Unit of Work (depends on repositories and ApplicationDbContext)
+            services.AddScoped<IUserRefreshTokenRepository, UserRefreshTokenRepository>();
+        }
+        private static void IncludeUnitOfWorkInDependencyInjection(IServiceCollection services)
+        {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-            return services;
         }
     }
 }

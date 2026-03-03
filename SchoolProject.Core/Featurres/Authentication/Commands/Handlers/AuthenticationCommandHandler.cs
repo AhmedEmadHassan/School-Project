@@ -8,12 +8,13 @@ using SchoolProject.Core.Bases;
 using SchoolProject.Core.Featurres.Authentication.Commands.Models;
 using SchoolProject.Core.Resources;
 using SchoolProject.Data.Entities.Identity;
+using SchoolProject.Data.Helpers;
 using SchoolProject.Service.Abstracts;
 
 namespace SchoolProject.Core.Featurres.Authentication.Commands.Handlers
 {
     public class AuthenticationCommandHandler : ResponseHandler
-                                                , IRequestHandler<SignInCommand, Response<string>>
+                                                , IRequestHandler<SignInCommand, Response<JwtAuthResult>>
     {
         #region Fields
         private readonly UserManager<User> _userManager;
@@ -34,27 +35,27 @@ namespace SchoolProject.Core.Featurres.Authentication.Commands.Handlers
         #endregion
 
         #region Handle Functions
-        public async Task<Response<string>> Handle(SignInCommand request, CancellationToken cancellationToken)
+        public async Task<Response<JwtAuthResult>> Handle(SignInCommand request, CancellationToken cancellationToken)
         {
             // Check if User Exist
             var user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == request.UserName);
             if (user == null)
             {
-                return BadRequest<string>(_localizer[SharedResourcesKeys.UserNameOrPasswordIsIncorrect]);
+                return BadRequest<JwtAuthResult>(_localizer[SharedResourcesKeys.UserNameOrPasswordIsIncorrect]);
             }
             var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
             // Check if Login Failed
             if (!result.Succeeded)
             {
-                return BadRequest<string>(_localizer[SharedResourcesKeys.UserNameOrPasswordIsIncorrect]);
+                return BadRequest<JwtAuthResult>(_localizer[SharedResourcesKeys.UserNameOrPasswordIsIncorrect]);
             }
             // Generate Token
             var token = await _authenticationService.GetJWTToken(user);
             if (token == null)
             {
-                return BadRequest<string>(_localizer[SharedResourcesKeys.FailedToGenerateToken]);
+                return BadRequest<JwtAuthResult>(_localizer[SharedResourcesKeys.FailedToGenerateToken]);
             }
-            return Success<string>(token);
+            return Success(token);
         }
 
         #endregion

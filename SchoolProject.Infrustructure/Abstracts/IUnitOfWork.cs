@@ -9,6 +9,7 @@ namespace SchoolProject.Infrustructure.Abstracts
         IStudentRepository Students { get; }
         ISubjectRepository Subjects { get; }
         IInstructorRepository Instructors { get; }
+        IUserRefreshTokenRepository userRefreshToken { get; }
 
         // Save all changes
         Task<int> SaveChangesAsync();

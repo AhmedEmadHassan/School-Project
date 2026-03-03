@@ -14,19 +14,22 @@ namespace SchoolProject.Infrustructure.Repositories
         public IStudentRepository Students { get; }
         public ISubjectRepository Subjects { get; }
         public IInstructorRepository Instructors { get; }
+        public IUserRefreshTokenRepository userRefreshToken { get; }
 
         public UnitOfWork(
             ApplicationDbContext context,
             IDepartmentRepository departmentRepository,
             IStudentRepository studentRepository,
             ISubjectRepository subjectRepository,
-            IInstructorRepository instructorRepository)
+            IInstructorRepository instructorRepository,
+            IUserRefreshTokenRepository userRefreshTokenRepository)
         {
             _context = context;
             Departments = departmentRepository;
             Students = studentRepository;
             Subjects = subjectRepository;
             Instructors = instructorRepository;
+            userRefreshToken = userRefreshTokenRepository;
         }
 
         // Save all tracked changes
