@@ -207,4 +207,22 @@
   <data name="ThePasswordAndConfirmPasswordDontMatch" xml:space="preserve">
     <value>كلمة السر غير متطابقة مع تأكيد كلمة  السر</value>
   </data>
+  <data name="UsernameIsEmpty" xml:space="preserve">
+    <value>اسم المستخدم فارغ</value>
+  </data>
+  <data name="NotEmpty" xml:space="preserve">
+    <value>يجب أن يكون هذا العنصر غير فارغ</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>اسم المستخدم</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>كلمة السر</value>
+  </data>
+  <data name="UserNameOrPasswordIsIncorrect" xml:space="preserve">
+    <value>اسم المستخدم أو كلمة المرور غير صحيحة</value>
+  </data>
+  <data name="FailedToGenerateToken" xml:space="preserve">
+    <value>فشل في إنشاء رمز المصادقة</value>
+  </data>
 </root>

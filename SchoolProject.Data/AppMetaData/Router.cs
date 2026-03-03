@@ -43,5 +43,19 @@
             public const string ChangePassword = prefix + "change-password";
 
         }
+        // AuthenticationRouting
+        public static class AuthenticationRouting
+        {
+            public const string controller = "authentication";
+            public const string prefix = baseUrl + controller + "/";
+            public const string getList = prefix + "list";
+            public const string getByID = prefix + "{id}";
+            public const string Create = prefix + "create";
+            public const string SignIn = prefix + "SignIn";
+            public const string Edit = prefix + "edit";
+            public const string Delete = prefix + "delete/{id}";
+            public const string Paginated = prefix + "paginated";
+
+        }
     }
 }

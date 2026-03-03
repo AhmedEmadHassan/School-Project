@@ -193,7 +193,7 @@
     <value>Email Exists</value>
   </data>
   <data name="UsernameAlreadyExists" xml:space="preserve">
-    <value>UsernameAlreadyExists</value>
+    <value>Username already Exists</value>
   </data>
   <data name="FailedToAdd" xml:space="preserve">
     <value>Failed to Add</value>
@@ -206,5 +206,23 @@
   </data>
   <data name="ThePasswordAndConfirmPasswordDontMatch" xml:space="preserve">
     <value>The Password and Confirm Password Don't Match</value>
+  </data>
+  <data name="UsernameIsEmpty" xml:space="preserve">
+    <value>Username is Empty</value>
+  </data>
+  <data name="NotEmpty" xml:space="preserve">
+    <value>Not Empty</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>UserName</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="UserNameOrPasswordIsIncorrect" xml:space="preserve">
+    <value>Username or Password is Incorrect</value>
+  </data>
+  <data name="FailedToGenerateToken" xml:space="preserve">
+    <value>Failed to generate Authentication Token</value>
   </data>
 </root>

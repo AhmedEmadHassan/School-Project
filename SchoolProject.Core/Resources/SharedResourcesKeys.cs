@@ -3,6 +3,7 @@
     public static class SharedResourcesKeys
     {
         public const string Required = "Required";
+        public const string NotEmpty = "NotEmpty";
         public const string NotFound = "NotFound";
         public const string CreatedSuccessfully = "CreatedSuccessfully";
         public const string BadRequest = "BadRequest";
@@ -28,6 +29,10 @@
         public const string FailedToEdit = "FailedToEdit";
         public const string FailedToDelete = "FailedToDelete";
         public const string ThePasswordAndConfirmPasswordDontMatch = "ThePasswordAndConfirmPasswordDontMatch";
+        public const string UsernameIsEmpty = "UsernameIsEmpty";
+        public const string UserNameOrPasswordIsIncorrect = "UserNameOrPasswordIsIncorrect";
+        public const string FailedToGenerateToken = "FailedToGenerateToken";
+
 
     }
 }

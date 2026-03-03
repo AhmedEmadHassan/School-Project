@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using SchoolProject.Infrustructure.Abstracts;
-using SchoolProject.Infrustructure.Context;
 using SchoolProject.Infrustructure.Repositories;
 
 namespace SchoolProject.Infrustructure
