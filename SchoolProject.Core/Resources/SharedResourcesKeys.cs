@@ -32,7 +32,11 @@
         public const string UsernameIsEmpty = "UsernameIsEmpty";
         public const string UserNameOrPasswordIsIncorrect = "UserNameOrPasswordIsIncorrect";
         public const string FailedToGenerateToken = "FailedToGenerateToken";
-
+        public const string AlgorithmIsWrong = "AlgorithmIsWrong";
+        public const string TokenIsNotExpired = "TokenIsNotExpired";
+        public const string RefreshTokenIsNotFound = "RefreshTokenIsNotFound";
+        public const string RefreshTokenIsExpired = "RefreshTokenIsExpired";
+        public const string TokenIsExpired = "TokenIsExpired";
 
     }
 }

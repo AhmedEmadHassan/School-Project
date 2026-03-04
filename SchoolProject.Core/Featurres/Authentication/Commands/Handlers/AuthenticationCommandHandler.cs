@@ -15,6 +15,7 @@ namespace SchoolProject.Core.Featurres.Authentication.Commands.Handlers
 {
     public class AuthenticationCommandHandler : ResponseHandler
                                                 , IRequestHandler<SignInCommand, Response<JwtAuthResult>>
+                                                , IRequestHandler<RefreshTokenCommand, Response<JwtAuthResult>>
     {
         #region Fields
         private readonly UserManager<User> _userManager;
@@ -56,6 +57,33 @@ namespace SchoolProject.Core.Featurres.Authentication.Commands.Handlers
                 return BadRequest<JwtAuthResult>(_localizer[SharedResourcesKeys.FailedToGenerateToken]);
             }
             return Success(token);
+        }
+
+        public async Task<Response<JwtAuthResult>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
+        {
+            var jwtToken = _authenticationService.ReadJWTToken(request.AccessToken);
+            var userIdAndExpireDate = await _authenticationService.ValidateDetails(jwtToken, request.AccessToken, request.RefreshToken);
+            switch (userIdAndExpireDate)
+            {
+                case ("AlgorithmIsWrong", null): return Unauthorized<JwtAuthResult>(_localizer[SharedResourcesKeys.AlgorithmIsWrong]);
+                case ("TokenIsNotExpired", null): return Unauthorized<JwtAuthResult>(_localizer[SharedResourcesKeys.TokenIsNotExpired]);
+                case ("RefreshTokenIsNotFound", null): return Unauthorized<JwtAuthResult>(_localizer[SharedResourcesKeys.RefreshTokenIsNotFound]);
+                case ("RefreshTokenIsExpired", null): return Unauthorized<JwtAuthResult>(_localizer[SharedResourcesKeys.RefreshTokenIsExpired]);
+            }
+            var (userId, expiryDate) = userIdAndExpireDate;
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound<JwtAuthResult>();
+            }
+            var result = await _authenticationService.GetRefreshToken(user, jwtToken, expiryDate, request.RefreshToken);
+            // Try to Add Token to Refresh Token Table
+            var isAdded = await _authenticationService.SaveJWTTokenToRefreshToken(result.AccessToken, result.refreshToken.TokenString);
+            if (!isAdded)
+            {
+                return BadRequest<JwtAuthResult>(_localizer[SharedResourcesKeys.FailedToGenerateToken]);
+            }
+            return Success(result);
         }
 
         #endregion
