@@ -25,7 +25,7 @@ namespace SchoolProject.Core.Featurres.Authentication.Queries.Handlers
         #region Constructors
         public async Task<Response<string>> Handle(AuthorizeUserQuery request, CancellationToken cancellationToken)
         {
-            var result = await _authenticationService.ValidateToken(request.AccessToken);
+            var result = await _authenticationService.ValidateAccessTokenAsync(request.AccessToken);
             if (result == "NotExpired")
                 return Success<string>(result);
             return Unauthorized<string>(_localizer[SharedResourcesKeys.TokenIsExpired]);

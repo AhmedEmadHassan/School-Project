@@ -6,11 +6,11 @@ namespace SchoolProject.Service.Abstracts
 {
     public interface IAuthenticationService
     {
-        public Task<JwtAuthResult> GetJWTToken(User user);
-        public Task<JwtAuthResult> GetRefreshToken(User user, JwtSecurityToken jwtToken, DateTime? expiryDate, string refreshToken);
-        public Task<string> ValidateToken(string AccessToken);
-        public Task<(string, DateTime?)> ValidateDetails(JwtSecurityToken jwtToken, string accessToken, string refreshToken);
-        public JwtSecurityToken ReadJWTToken(string accessToken);
-        public Task<bool> SaveJWTTokenToRefreshToken(string accessToken, string refreshToken);
+        public Task<JwtAuthResult> GenerateJwtAuthResultAsync(User user);
+        public Task<JwtAuthResult> GenerateNewAccessTokenFromRefreshAsync(User user, JwtSecurityToken jwtToken, DateTime? expiryDate, string refreshToken);
+        public Task<string> ValidateAccessTokenAsync(string AccessToken);
+        public Task<(string, DateTime?)> ValidateRefreshTokenAsync(JwtSecurityToken jwtToken, string accessToken, string refreshToken);
+        public JwtSecurityToken ReadJwtToken(string accessToken);
+        public Task<bool> UpdateRefreshTokenWithNewAccessTokenAsync(string accessToken, string refreshToken);
     }
 }

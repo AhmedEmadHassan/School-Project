@@ -51,7 +51,7 @@ namespace SchoolProject.Core.Featurres.Authentication.Commands.Handlers
                 return BadRequest<JwtAuthResult>(_localizer[SharedResourcesKeys.UserNameOrPasswordIsIncorrect]);
             }
             // Generate Token
-            var token = await _authenticationService.GetJWTToken(user);
+            var token = await _authenticationService.GenerateJwtAuthResultAsync(user);
             if (token == null)
             {
                 return BadRequest<JwtAuthResult>(_localizer[SharedResourcesKeys.FailedToGenerateToken]);
@@ -61,8 +61,8 @@ namespace SchoolProject.Core.Featurres.Authentication.Commands.Handlers
 
         public async Task<Response<JwtAuthResult>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
         {
-            var jwtToken = _authenticationService.ReadJWTToken(request.AccessToken);
-            var userIdAndExpireDate = await _authenticationService.ValidateDetails(jwtToken, request.AccessToken, request.RefreshToken);
+            var jwtToken = _authenticationService.ReadJwtToken(request.AccessToken);
+            var userIdAndExpireDate = await _authenticationService.ValidateRefreshTokenAsync(jwtToken, request.AccessToken, request.RefreshToken);
             switch (userIdAndExpireDate)
             {
                 case ("AlgorithmIsWrong", null): return Unauthorized<JwtAuthResult>(_localizer[SharedResourcesKeys.AlgorithmIsWrong]);
@@ -76,9 +76,9 @@ namespace SchoolProject.Core.Featurres.Authentication.Commands.Handlers
             {
                 return NotFound<JwtAuthResult>();
             }
-            var result = await _authenticationService.GetRefreshToken(user, jwtToken, expiryDate, request.RefreshToken);
+            var result = await _authenticationService.GenerateNewAccessTokenFromRefreshAsync(user, jwtToken, expiryDate, request.RefreshToken);
             // Try to Add Token to Refresh Token Table
-            var isAdded = await _authenticationService.SaveJWTTokenToRefreshToken(result.AccessToken, result.refreshToken.TokenString);
+            var isAdded = await _authenticationService.UpdateRefreshTokenWithNewAccessTokenAsync(result.AccessToken, result.refreshToken.TokenString);
             if (!isAdded)
             {
                 return BadRequest<JwtAuthResult>(_localizer[SharedResourcesKeys.FailedToGenerateToken]);
