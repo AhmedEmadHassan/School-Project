@@ -1,13 +1,46 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi;
 using SchoolProject.Data.Entities.Identity;
+using SchoolProject.Data.Helpers;
 using SchoolProject.Infrustructure.Context;
-
+using System.Text;
 namespace SchoolProject.Infrustructure
 {
     public static class ServiceRegistration
     {
-        public static IServiceCollection AddServiceRegistration(this IServiceCollection services)
+        private static void AddJWTSettings(IServiceCollection services, IConfiguration configuration)
+        {
+            // Add JWT Settings
+            var jwtSettings = new JwtSettings();
+            configuration.GetSection(nameof(jwtSettings)).Bind(jwtSettings);
+            services.AddSingleton(jwtSettings);
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+           .AddJwtBearer(x =>
+           {
+               x.RequireHttpsMetadata = false;
+               x.SaveToken = true;
+               x.TokenValidationParameters = new TokenValidationParameters
+               {
+                   ValidateIssuer = jwtSettings.ValidateIssuer,
+                   ValidIssuers = new[] { jwtSettings.Issuer },
+                   ValidateIssuerSigningKey = jwtSettings.ValidateIssuerSigningKey,
+                   IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)),
+                   ValidAudience = jwtSettings.Audience,
+                   ValidateAudience = jwtSettings.ValidateAudience,
+                   ValidateLifetime = jwtSettings.ValidateLifeTime,
+               };
+           });
+        }
+        private static void AddIdentitySettings(IServiceCollection services, IConfiguration configuration)
         {
             services.AddIdentity<User, Role>(option =>
             {
@@ -31,6 +64,36 @@ namespace SchoolProject.Infrustructure
                 option.SignIn.RequireConfirmedEmail = false;
 
             }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+        }
+        private static void ConfigureSwaggerAuthentication(IServiceCollection services, IConfiguration configuration)
+        {
+            // Add Swagger Gen Authorization
+            services.AddSwaggerGen(options =>
+            {
+
+                options.AddSecurityDefinition("bearer", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Description = "JWT Authorization header using the Bearer scheme."
+                });
+
+                options.AddSecurityRequirement(document => new OpenApiSecurityRequirement
+                {
+                    [new OpenApiSecuritySchemeReference("bearer", document)] = []
+                });
+            });
+        }
+        public static IServiceCollection AddServiceRegistration(this IServiceCollection services, IConfiguration configuration)
+        {
+
+            AddIdentitySettings(services, configuration);
+
+            AddJWTSettings(services, configuration);
+
+            ConfigureSwaggerAuthentication(services, configuration);
 
             return services;
         }

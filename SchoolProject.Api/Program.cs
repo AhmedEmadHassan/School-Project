@@ -1,5 +1,3 @@
-
-
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +25,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 builder.Services.AddInfrastructureDependencies();
 builder.Services.AddServiceDependencies();
 builder.Services.AddCoreDependencies();
-builder.Services.AddServiceRegistration();
+builder.Services.AddServiceRegistration(builder.Configuration);
 #endregion
 #region Localization
 
@@ -87,7 +85,7 @@ app.UseRequestLocalization(options.Value);
 
 app.UseHttpsRedirection();
 
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

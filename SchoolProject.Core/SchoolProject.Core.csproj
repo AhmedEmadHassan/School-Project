@@ -22,6 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Featurres\Authentication\Commands\Results\" />
+    <Folder Include="Featurres\Authentication\Queries\Response\" />
     <Folder Include="Featurres\Departments\Commands\Handlers\" />
     <Folder Include="Featurres\Departments\Commands\Models\" />
     <Folder Include="Featurres\Departments\Commands\Validators\" />
