@@ -24,6 +24,10 @@
   <ItemGroup>
     <Folder Include="Featurres\Authentication\Commands\Results\" />
     <Folder Include="Featurres\Authentication\Queries\Response\" />
+    <Folder Include="Featurres\Authorization\Commands\Results\" />
+    <Folder Include="Featurres\Authorization\Queries\Handlers\" />
+    <Folder Include="Featurres\Authorization\Queries\Models\" />
+    <Folder Include="Featurres\Authorization\Queries\Response\" />
     <Folder Include="Featurres\Departments\Commands\Handlers\" />
     <Folder Include="Featurres\Departments\Commands\Models\" />
     <Folder Include="Featurres\Departments\Commands\Validators\" />

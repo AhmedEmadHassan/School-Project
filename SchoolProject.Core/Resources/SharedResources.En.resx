@@ -240,4 +240,13 @@
   <data name="TokenIsExpired" xml:space="preserve">
     <value>Token is Expired</value>
   </data>
+  <data name="RoleAlreadyExists" xml:space="preserve">
+    <value>Role already Exists</value>
+  </data>
+  <data name="RoleAddedSuccessfully" xml:space="preserve">
+    <value>Role added Successfully</value>
+  </data>
+  <data name="FailedToAddRole" xml:space="preserve">
+    <value>Failed to Add Role</value>
+  </data>
 </root>

@@ -37,6 +37,9 @@
         public const string RefreshTokenIsNotFound = "RefreshTokenIsNotFound";
         public const string RefreshTokenIsExpired = "RefreshTokenIsExpired";
         public const string TokenIsExpired = "TokenIsExpired";
+        public const string RoleAlreadyExists = "RoleAlreadyExists";
+        public const string RoleAddedSuccessfully = "RoleAddedSuccessfully";
+        public const string FailedToAddRole = "FailedToAddRole";
 
     }
 }
