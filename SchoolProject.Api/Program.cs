@@ -1,11 +1,14 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using SchoolProject.Core;
 using SchoolProject.Core.Middleware;
+using SchoolProject.Data.Entities.Identity;
 using SchoolProject.Infrustructure;
 using SchoolProject.Infrustructure.Context;
+using SchoolProject.Infrustructure.Seeders;
 using SchoolProject.Service;
 using System.Globalization;
 
@@ -65,7 +68,13 @@ builder.Services.AddSwaggerGen();
 #endregion
 var app = builder.Build();
 app.UseMiddleware<ErrorHandlerMiddleware>();
-
+using (var scope = app.Services.CreateScope())
+{
+    var UserManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+    var RoleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
+    await RoleSeeder.SeedAsync(RoleManager);
+    await UserSeeder.SeedAsync(UserManager);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
