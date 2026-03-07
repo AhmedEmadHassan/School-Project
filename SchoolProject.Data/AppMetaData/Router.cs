@@ -60,7 +60,7 @@
         }
         public static class AuthorizationRouting
         {
-            public const string controller = "authentication";
+            public const string controller = "authorization";
             public const string prefix = baseUrl + controller + "/";
             public const string getList = prefix + "list";
             public const string getByID = prefix + "{id}";

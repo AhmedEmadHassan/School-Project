@@ -40,6 +40,11 @@
         public const string RoleAlreadyExists = "RoleAlreadyExists";
         public const string RoleAddedSuccessfully = "RoleAddedSuccessfully";
         public const string FailedToAddRole = "FailedToAddRole";
+        public const string RoleEditedSuccessfully = "RoleEditedSuccessfully";
+        public const string FailedToEditRole = "FailedToEditRole";
+        public const string FailedToDeleteRole = "FailedToDeleteRole";
+        public const string Role = "Role";
+        public const string RoleHasUsers = "RoleHasUsers";
 
     }
 }

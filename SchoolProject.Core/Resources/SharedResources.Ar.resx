@@ -249,4 +249,19 @@
   <data name="FailedToAddRole" xml:space="preserve">
     <value>فشل إضافة الدور</value>
   </data>
+  <data name="RoleEditedSuccessfully" xml:space="preserve">
+    <value>تم تعديل الدور بنجاح</value>
+  </data>
+  <data name="FailedToEditRole" xml:space="preserve">
+    <value>فشل تعديل الدور</value>
+  </data>
+  <data name="FailedToDeleteRole" xml:space="preserve">
+    <value>فشل حذف الدور</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>الدور</value>
+  </data>
+  <data name="RoleHasUsers" xml:space="preserve">
+    <value>الدور له مستخدمين</value>
+  </data>
 </root>
