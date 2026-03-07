@@ -49,6 +49,7 @@ namespace SchoolProject.Core.Featurres.Users.Commands.Handlers
             var result = await _userManager.CreateAsync(CreatedUser, request.Password);
             if (result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(CreatedUser, "User");
                 return Created<string>(_localizer[SharedResourcesKeys.CreatedSuccessfully]);
             }
             else

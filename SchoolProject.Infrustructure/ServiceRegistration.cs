@@ -7,6 +7,7 @@ using Microsoft.OpenApi;
 using SchoolProject.Data.Entities.Identity;
 using SchoolProject.Data.Helpers;
 using SchoolProject.Infrustructure.Context;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 namespace SchoolProject.Infrustructure
 {
@@ -37,6 +38,8 @@ namespace SchoolProject.Infrustructure
                    ValidAudience = jwtSettings.Audience,
                    ValidateAudience = jwtSettings.ValidateAudience,
                    ValidateLifetime = jwtSettings.ValidateLifeTime,
+                   NameClaimType = JwtRegisteredClaimNames.Name,   // optional custom name
+                   RoleClaimType = "Role"        // use your custom claim key instead of the URI
                };
            });
         }

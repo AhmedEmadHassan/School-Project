@@ -24,6 +24,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
 #region Dependency Injection
 builder.Services.AddInfrastructureDependencies();
 builder.Services.AddServiceDependencies();
