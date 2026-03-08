@@ -74,7 +74,7 @@ namespace SchoolProject.Infrustructure
             // Add Swagger Gen Authorization
             services.AddSwaggerGen(options =>
             {
-
+                options.EnableAnnotations();
                 options.AddSecurityDefinition("bearer", new OpenApiSecurityScheme
                 {
                     Type = SecuritySchemeType.Http,

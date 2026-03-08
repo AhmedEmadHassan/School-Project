@@ -11,6 +11,8 @@ namespace SchoolProject.Service.Abstracts
         public Task<bool> IsRoleExist(string RoleName);
         public Task<bool> DeleteRoleAsync(int Id);
         public Task<List<User>> GetUsersInRoleAsync(string RoleName);
+        public Task<List<Role>> GetRolesListAsync();
+        public Task<Role?> GetRoleByIdAsync(int Id);
 
     }
 }

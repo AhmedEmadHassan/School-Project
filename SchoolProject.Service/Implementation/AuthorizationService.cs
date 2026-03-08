@@ -1,6 +1,7 @@
 ﻿
 
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SchoolProject.Data.Entities.Identity;
 using SchoolProject.Service.Abstracts;
 
@@ -59,6 +60,15 @@ namespace SchoolProject.Service.Implementation
         {
             var users = await _userManager.GetUsersInRoleAsync(RoleName);
             return users.ToList();
+        }
+        public async Task<List<Role>> GetRolesListAsync()
+        {
+            return await _roleManager.Roles.ToListAsync();
+        }
+        public async Task<Role?> GetRoleByIdAsync(int Id)
+        {
+            return await _roleManager.FindByIdAsync(Id.ToString());
+
         }
     }
 }

@@ -45,6 +45,7 @@
         public const string FailedToDeleteRole = "FailedToDeleteRole";
         public const string Role = "Role";
         public const string RoleHasUsers = "RoleHasUsers";
+        public const string RoleNotFound = "RoleNotFound";
 
     }
 }

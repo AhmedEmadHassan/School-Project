@@ -65,7 +65,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 
 #region AddSwaggerServices
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+//builder.Services.AddSwaggerGen();
 #endregion
 var app = builder.Build();
 app.UseMiddleware<ErrorHandlerMiddleware>();
