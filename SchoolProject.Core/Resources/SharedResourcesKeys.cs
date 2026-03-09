@@ -46,6 +46,7 @@
         public const string Role = "Role";
         public const string RoleHasUsers = "RoleHasUsers";
         public const string RoleNotFound = "RoleNotFound";
+        public const string UserNotFound = "UserNotFound";
 
     }
 }

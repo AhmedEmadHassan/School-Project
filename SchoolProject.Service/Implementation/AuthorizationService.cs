@@ -1,7 +1,6 @@
-﻿
-
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SchoolProject.Data.DTOs;
 using SchoolProject.Data.Entities.Identity;
 using SchoolProject.Service.Abstracts;
 
@@ -69,6 +68,28 @@ namespace SchoolProject.Service.Implementation
         {
             return await _roleManager.FindByIdAsync(Id.ToString());
 
+        }
+        public async Task<ManageUserRolesResult?> GetManageUserRolesData(int UserId)
+        {
+            var userRoles = new List<UserRole>();
+            var user = await _userManager.FindByIdAsync(UserId.ToString());
+            if (user == null)
+                return null;
+            var AllUserRoles = await _userManager.GetRolesAsync(user);
+            List<Role> AllRoles = await _roleManager.Roles.ToListAsync();
+            foreach (var item in AllRoles)
+            {
+                var role = new UserRole();
+                role.RoleId = item.Id;
+                role.RoleName = item.Name!;
+                role.IsSelected = AllUserRoles.Contains(item.Name!);
+                userRoles.Add(role);
+            }
+            var result = new ManageUserRolesResult();
+            result.RolesList = userRoles;
+            result.UserId = user.Id;
+            //TODO: Check the result output
+            return result;
         }
     }
 }

@@ -5,13 +5,16 @@ using SchoolProject.Core.Bases;
 using SchoolProject.Core.Featurres.Authorization.Queries.Models;
 using SchoolProject.Core.Featurres.Authorization.Queries.Results;
 using SchoolProject.Core.Resources;
+using SchoolProject.Data.DTOs;
 using SchoolProject.Service.Abstracts;
+
 
 namespace SchoolProject.Core.Featurres.Authorization.Queries.Handlers
 {
     public class RoleQueryHandler : ResponseHandler
                                     , IRequestHandler<GetRolesListQuery, Response<List<GetRolesListResult>>>
                                     , IRequestHandler<GetRoleByIdQuery, Response<GetRoleByIdResult>>
+                                    , IRequestHandler<ManageUserRolesQuery, Response<ManageUserRolesResult>>
     {
         #region Fields
         private readonly IStringLocalizer<SharedResources> _stringLocalizer;
@@ -43,6 +46,16 @@ namespace SchoolProject.Core.Featurres.Authorization.Queries.Handlers
             }
             var response = _mapper.Map<GetRoleByIdResult>(role);
             return Success(response);
+        }
+
+        public async Task<Response<ManageUserRolesResult>> Handle(ManageUserRolesQuery request, CancellationToken cancellationToken)
+        {
+            var manageUserRolesResult = await _authorizationService.GetManageUserRolesData(request.UserId);
+            if (manageUserRolesResult == null)
+            {
+                return NotFound<ManageUserRolesResult>(_stringLocalizer[SharedResourcesKeys.UserNotFound]);
+            }
+            return Success(manageUserRolesResult);
         }
         #endregion
 

@@ -1,4 +1,5 @@
-﻿using SchoolProject.Data.Entities.Identity;
+﻿using SchoolProject.Data.DTOs;
+using SchoolProject.Data.Entities.Identity;
 
 namespace SchoolProject.Service.Abstracts
 {
@@ -13,6 +14,7 @@ namespace SchoolProject.Service.Abstracts
         public Task<List<User>> GetUsersInRoleAsync(string RoleName);
         public Task<List<Role>> GetRolesListAsync();
         public Task<Role?> GetRoleByIdAsync(int Id);
+        public Task<ManageUserRolesResult?> GetManageUserRolesData(int UserId);
 
     }
 }

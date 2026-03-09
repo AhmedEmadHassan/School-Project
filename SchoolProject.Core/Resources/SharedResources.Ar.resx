@@ -267,4 +267,7 @@
   <data name="RoleNotFound" xml:space="preserve">
     <value>الدور غير موجود</value>
   </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>المستخدم غير موجود</value>
+  </data>
 </root>
