@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SchoolProject.Data.DTOs;
 using SchoolProject.Data.Entities.Identity;
+using SchoolProject.Infrustructure.Abstracts;
 using SchoolProject.Service.Abstracts;
 
 namespace SchoolProject.Service.Implementation
@@ -10,10 +11,12 @@ namespace SchoolProject.Service.Implementation
     {
         private readonly RoleManager<Role> _roleManager;
         private readonly UserManager<User> _userManager;
-        public AuthorizationService(RoleManager<Role> roleManager, UserManager<User> userManager)
+        private readonly IUnitOfWork _unitOfWork;
+        public AuthorizationService(RoleManager<Role> roleManager, UserManager<User> userManager, IUnitOfWork unitOfWork)
         {
             _roleManager = roleManager;
             _userManager = userManager;
+            _unitOfWork = unitOfWork;
         }
         public async Task<bool> AddRoleAsync(string RoleName)
         {
@@ -71,7 +74,7 @@ namespace SchoolProject.Service.Implementation
         }
         public async Task<ManageUserRolesResult?> GetManageUserRolesData(int UserId)
         {
-            var userRoles = new List<UserRole>();
+            var userRoles = new List<UserRoleCheck>();
             var user = await _userManager.FindByIdAsync(UserId.ToString());
             if (user == null)
                 return null;
@@ -79,7 +82,7 @@ namespace SchoolProject.Service.Implementation
             List<Role> AllRoles = await _roleManager.Roles.ToListAsync();
             foreach (var item in AllRoles)
             {
-                var role = new UserRole();
+                var role = new UserRoleCheck();
                 role.RoleId = item.Id;
                 role.RoleName = item.Name!;
                 role.IsSelected = AllUserRoles.Contains(item.Name!);
@@ -90,6 +93,54 @@ namespace SchoolProject.Service.Implementation
             result.UserId = user.Id;
             //TODO: Check the result output
             return result;
+        }
+        public async Task<bool> ManageUserRolesAsync(int UserId, List<UserRoleCheck> RolesList)
+        {
+            await _unitOfWork.BeginTransactionAsync();
+
+            try
+            {
+                // Get User
+                var user = await _userManager.FindByIdAsync(UserId.ToString());
+                if (user == null)
+                    return false;
+
+                // Get User Roles
+                var userRoles = await _userManager.GetRolesAsync(user);
+
+                // Remove existing roles
+                var result = await _userManager.RemoveFromRolesAsync(user, userRoles);
+                if (!result.Succeeded)
+                {
+                    await _unitOfWork.RollbackTransactionAsync();
+                    return false;
+                }
+
+                // Map selected roles
+                var selectedRoles = RolesList
+                                    .Where(x => x.IsSelected)
+                                    .Select(x => x.RoleName)
+                                    .ToList();
+
+                // Add new roles
+                result = await _userManager.AddToRolesAsync(user, selectedRoles);
+
+                if (!result.Succeeded)
+                {
+                    await _unitOfWork.RollbackTransactionAsync();
+                    return false;
+                }
+
+                // Commit transaction
+                await _unitOfWork.CommitTransactionAsync();
+
+                return true;
+            }
+            catch
+            {
+                await _unitOfWork.RollbackTransactionAsync();
+                return false;
+            }
         }
     }
 }

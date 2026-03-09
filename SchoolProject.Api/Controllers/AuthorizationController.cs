@@ -81,5 +81,17 @@ namespace SchoolProject.Api.Controllers
         {
             return NewResult(await Mediator.Send(new ManageUserRolesQuery(id)));
         }
+        [HttpPost(Router.AuthorizationRouting.SaveUserRoles)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response<string>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Response<string>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Response<string>))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [SwaggerOperation(Description = "Manage user Roles Result")]
+        [Produces("Application/json")]
+        public async Task<IActionResult> ManageUserRolesResult([FromBody] ManageUserRolesCommand command)
+        {
+            return NewResult(await Mediator.Send(command));
+        }
     }
 }

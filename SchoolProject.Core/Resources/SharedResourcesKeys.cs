@@ -47,6 +47,8 @@
         public const string RoleHasUsers = "RoleHasUsers";
         public const string RoleNotFound = "RoleNotFound";
         public const string UserNotFound = "UserNotFound";
+        public const string UserRolesUpdatedSuccessfully = "UserRolesUpdatedSuccessfully";
+        public const string FailedToUpdateUserRoles = "FailedToUpdateUserRoles";
 
     }
 }

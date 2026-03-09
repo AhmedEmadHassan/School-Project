@@ -11,6 +11,7 @@ namespace SchoolProject.Core.Featurres.Authorization.Commands.Handlers
         , IRequestHandler<AddRoleCommand, Response<string>>
         , IRequestHandler<EditRoleCommand, Response<string>>
         , IRequestHandler<DeleteRoleCommand, Response<string>>
+        , IRequestHandler<ManageUserRolesCommand, Response<string>>
     {
         private readonly IStringLocalizer<SharedResources> _stringLocalizer;
         private readonly IAuthorizationService _authorizationService;
@@ -70,6 +71,19 @@ namespace SchoolProject.Core.Featurres.Authorization.Commands.Handlers
             else
             {
                 return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.FailedToDeleteRole]);
+            }
+        }
+
+        public async Task<Response<string>> Handle(ManageUserRolesCommand request, CancellationToken cancellationToken)
+        {
+            var result = await _authorizationService.ManageUserRolesAsync(request.UserId, request.RolesList);
+            if (result)
+            {
+                return Success<string>(_stringLocalizer[SharedResourcesKeys.UserRolesUpdatedSuccessfully]);
+            }
+            else
+            {
+                return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.FailedToUpdateUserRoles]);
             }
         }
     }

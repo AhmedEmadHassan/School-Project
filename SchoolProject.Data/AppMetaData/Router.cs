@@ -70,6 +70,7 @@
             public const string Delete = prefix + "delete/{id}";
             public const string Paginated = prefix + "paginated";
             public const string ManageUserRoles = prefix + "manage-user-roles/{id}";
+            public const string SaveUserRoles = prefix + "manage-user-roles";
         }
     }
 }
