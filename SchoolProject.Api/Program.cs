@@ -1,11 +1,14 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using SchoolProject.Core;
 using SchoolProject.Core.Middleware;
+using SchoolProject.Data.Entities.Identity;
 using SchoolProject.Infrustructure;
 using SchoolProject.Infrustructure.Context;
+using SchoolProject.Infrustructure.Seeders;
 using SchoolProject.Service;
 using System.Globalization;
 
@@ -21,6 +24,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
 #region Dependency Injection
 builder.Services.AddInfrastructureDependencies();
 builder.Services.AddServiceDependencies();
@@ -61,11 +65,17 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 
 #region AddSwaggerServices
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+//builder.Services.AddSwaggerGen();
 #endregion
 var app = builder.Build();
 app.UseMiddleware<ErrorHandlerMiddleware>();
-
+using (var scope = app.Services.CreateScope())
+{
+    var UserManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+    var RoleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
+    await RoleSeeder.SeedAsync(RoleManager);
+    await UserSeeder.SeedAsync(UserManager);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

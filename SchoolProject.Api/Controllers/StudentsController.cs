@@ -10,7 +10,7 @@ using SchoolProject.Data.AppMetaData;
 namespace SchoolProject.Api.Controllers
 {
     [ApiController]
-    [Authorize]
+    [Authorize("Admin,User")]
     public class StudentsController : AppControllerBase
     {
         [HttpGet(Router.StudentsRouting.getStudentList)]

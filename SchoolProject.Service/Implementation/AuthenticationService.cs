@@ -237,15 +237,16 @@ namespace SchoolProject.Service.Implementation
             var roles = await _userManager.GetRolesAsync(user);
             var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Name,user.UserName),
-                new Claim(ClaimTypes.NameIdentifier,user.UserName),
-                new Claim(ClaimTypes.Email,user.Email),
+                new Claim(JwtRegisteredClaimNames.Name,user.UserName),
+                //new Claim(ClaimTypes.NameIdentifier,user.UserName),
+                new Claim(JwtRegisteredClaimNames.Email,user.Email),
                 new Claim(nameof(UserClaimModel.PhoneNumber), user.PhoneNumber),
                 new Claim(nameof(UserClaimModel.Id), user.Id.ToString())
             };
             foreach (var role in roles)
             {
-                claims.Add(new Claim(ClaimTypes.Role, role));
+                //claims.Add(new Claim(ClaimTypes.Role, role));
+                claims.Add(new Claim(nameof(ClaimTypes.Role), role));
             }
             var userClaims = await _userManager.GetClaimsAsync(user);
             claims.AddRange(userClaims);

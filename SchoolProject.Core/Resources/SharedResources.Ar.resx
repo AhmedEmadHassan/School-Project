@@ -240,4 +240,34 @@
   <data name="TokenIsExpired" xml:space="preserve">
     <value>رمز المصادقة منتهي</value>
   </data>
+  <data name="RoleAlreadyExists" xml:space="preserve">
+    <value>الدور بالفعل موجود</value>
+  </data>
+  <data name="RoleAddedSuccessfully" xml:space="preserve">
+    <value>تم إضافة الدور بنجاح</value>
+  </data>
+  <data name="FailedToAddRole" xml:space="preserve">
+    <value>فشل إضافة الدور</value>
+  </data>
+  <data name="RoleEditedSuccessfully" xml:space="preserve">
+    <value>تم تعديل الدور بنجاح</value>
+  </data>
+  <data name="FailedToEditRole" xml:space="preserve">
+    <value>فشل تعديل الدور</value>
+  </data>
+  <data name="FailedToDeleteRole" xml:space="preserve">
+    <value>فشل حذف الدور</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>الدور</value>
+  </data>
+  <data name="RoleHasUsers" xml:space="preserve">
+    <value>الدور له مستخدمين</value>
+  </data>
+  <data name="RoleNotFound" xml:space="preserve">
+    <value>الدور غير موجود</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>المستخدم غير موجود</value>
+  </data>
 </root>

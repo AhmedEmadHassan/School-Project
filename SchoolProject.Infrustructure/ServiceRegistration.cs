@@ -7,6 +7,8 @@ using Microsoft.OpenApi;
 using SchoolProject.Data.Entities.Identity;
 using SchoolProject.Data.Helpers;
 using SchoolProject.Infrustructure.Context;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 namespace SchoolProject.Infrustructure
 {
@@ -37,7 +39,61 @@ namespace SchoolProject.Infrustructure
                    ValidAudience = jwtSettings.Audience,
                    ValidateAudience = jwtSettings.ValidateAudience,
                    ValidateLifetime = jwtSettings.ValidateLifeTime,
+                   NameClaimType = JwtRegisteredClaimNames.Name,   // optional custom name
+                   RoleClaimType = "Role"        // use your custom claim key instead of the URI
                };
+               #region Check if user still exists and roles are unchanged
+               x.Events = new JwtBearerEvents
+               {
+                   OnTokenValidated = async context =>
+                   {
+                       var principal = context.Principal;
+
+                       if (principal == null)
+                       {
+                           context.Fail("Invalid token.");
+                           return;
+                       }
+
+                       var userManager = context.HttpContext.RequestServices
+                           .GetRequiredService<UserManager<User>>();
+
+                       // Get user ID from token
+                       var userId = principal.FindFirst("Id")?.Value;
+
+                       if (string.IsNullOrEmpty(userId))
+                       {
+                           context.Fail("Token missing user id.");
+                           return;
+                       }
+
+                       // Check if user still exists
+                       var user = await userManager.FindByIdAsync(userId);
+
+                       if (user == null)
+                       {
+                           context.Fail("User no longer exists.");
+                           return;
+                       }
+
+                       // Get roles from database
+                       var dbRoles = await userManager.GetRolesAsync(user);
+
+                       // Get roles from token
+                       var tokenRoles = principal.Claims
+                           .Where(c => c.Type == ClaimTypes.Role || c.Type == nameof(ClaimTypes.Role) || c.Type == "Rules")
+                           .Select(c => c.Value)
+                           .ToList();
+
+                       // Compare roles
+                       if (!dbRoles.OrderBy(r => r).SequenceEqual(tokenRoles.OrderBy(r => r)))
+                       {
+                           context.Fail("User roles changed.");
+                           return;
+                       }
+                   }
+               };
+               #endregion
            });
         }
         private static void AddIdentitySettings(IServiceCollection services, IConfiguration configuration)
@@ -71,7 +127,7 @@ namespace SchoolProject.Infrustructure
             // Add Swagger Gen Authorization
             services.AddSwaggerGen(options =>
             {
-
+                options.EnableAnnotations();
                 options.AddSecurityDefinition("bearer", new OpenApiSecurityScheme
                 {
                     Type = SecuritySchemeType.Http,

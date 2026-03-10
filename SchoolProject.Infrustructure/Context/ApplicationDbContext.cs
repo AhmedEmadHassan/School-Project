@@ -30,19 +30,6 @@ namespace SchoolProject.Infrustructure.Context
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            // Ensure EF uses the explicit join entity for Student-Subject many-to-many
-            modelBuilder.Entity<Student>()
-                .HasMany(s => s.Subjects)
-                .WithMany(su => su.Students)
-                .UsingEntity<StudentSubject>(
-                    j => j.HasOne(ss => ss.Subject).WithMany(su => su.StudentsSubjects).HasForeignKey(ss => ss.SubID),
-                    j => j.HasOne(ss => ss.Student).WithMany(s => s.StudentSubjects).HasForeignKey(ss => ss.StudID),
-                    j =>
-                    {
-                        j.HasKey(ss => new { ss.StudID, ss.SubID });
-                        j.ToTable("StudentSubject");
-                    }
-                );
         }
     }
 }
