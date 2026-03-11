@@ -150,7 +150,7 @@ namespace SchoolProject.Infrustructure
             AddJWTSettings(services, configuration);
 
             ConfigureSwaggerAuthentication(services, configuration);
-
+            services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
             return services;
         }
     }

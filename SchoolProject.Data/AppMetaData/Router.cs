@@ -58,6 +58,20 @@
             public const string ValidateToken = prefix + "validate-token";
 
         }
+        public static class EmailsRoute
+        {
+            public const string controller = "users";
+            public const string prefix = baseUrl + controller + "/";
+            public const string getList = prefix + "list";
+            public const string getByID = prefix + "{id}";
+            public const string Create = prefix + "create";
+            public const string Edit = prefix + "edit";
+            public const string Delete = prefix + "delete/{id}";
+            public const string Paginated = prefix + "paginated";
+            public const string ChangePassword = prefix + "change-password";
+            public const string SendEmail = prefix + "Send-Email";
+
+        }
         public static class AuthorizationRouting
         {
             public const string controller = "authorization";
